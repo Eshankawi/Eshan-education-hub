@@ -81,12 +81,33 @@
                 <li onclick="filterCategory('grade5')"><i class="fa-solid fa-award"></i> 🌟 ශිෂ්‍යත්වය (Grade 5)</li>
                 <li onclick="filterCategory('news')"><i class="fa-solid fa-newspaper"></i> 📰 අධ්‍යාපනික පුවත්</li>
             </ul>
+
+            <div class="grade-filter-container">
+                <h3><i class="fa-solid fa-layer-group"></i> ශ්‍රේණිය තෝරන්න</h3>
+                <select id="gradeSelect" onchange="filterGrade(this.value)">
+                    <option value="all">සියලුම ශ්‍රේණි (All Grades)</option>
+                    <option value="1-5">1 - 5 ශ්‍රේණි</option>
+                    <option value="6-9">6 - 9 ශ්‍රේණි</option>
+                    <option value="ol">10 - 11 ශ්‍රේණි (O/L)</option>
+                    <option value="al">12 - 13 ශ්‍රේණි (A/L)</option>
+                </select>
+            </div>
         </aside>
 
         <main class="content">
             <div id="bookGrid" class="grid"></div>
         </main>
     </div>
+
+    <section class="notes-section">
+        <h3><i class="fa-solid fa-note-sticky"></i> මාගේ කෙටි සටහන් (Quick Study Notes)</h3>
+        <p>පාඩම් කරන අතරතුර වැදගත් කරුණු මෙතැන සටහන් කර Save කර තබාගන්න.</p>
+        <div class="note-input-group">
+            <input type="text" id="noteInput" placeholder="සටහන ඇතුළත් කරන්න (උදා: හෙට පෙ.ව. 8.00 ට Science Past Paper එක செய்ய)...">
+            <button onclick="addNote()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
+        </div>
+        <ul id="notesList" class="notes-list"></ul>
+    </section>
 
     <div id="timerModal" class="modal">
         <div class="modal-content">
