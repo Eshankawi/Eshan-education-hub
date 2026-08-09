@@ -18,11 +18,10 @@
         </div>
         
         <div class="controls">
-            <button id="timerBtn" onclick="toggleTimerModal()"><i class="fa-solid fa-stopwatch"></i> Study Timer</button>
-            <button id="musicToggleBtn" onclick="toggleMusic()">
-                <i class="fa-solid fa-music"></i> Music: Off 🔇
+            <button id="timerBtn" class="btn-3d btn-timer" onclick="toggleTimerModal()">
+                <i class="fa-solid fa-stopwatch"></i> Study Timer
             </button>
-            <button id="themeToggleBtn" onclick="toggleTheme()">
+            <button id="themeToggleBtn" class="btn-3d btn-theme" onclick="toggleTheme()">
                 <i class="fa-solid fa-moon"></i> Dark Mode
             </button>
         </div>
@@ -63,19 +62,6 @@
         </div>
     </header>
 
-    <section class="ambient-section">
-        <h3><i class="fa-solid fa-headphones"></i> Focus Music & Nature Sounds (ස්වාභාවික සන්සුන් නාද)</h3>
-        <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">පාඩම් කිරීමට පෙර හෝ අතරමැද මනස නිරවුල් කරගැනීමට සන්සුන් ස්වාභාවික තේමාවන් භාවිත කරන්න.</p>
-        <div class="ambient-controls">
-            <button id="rainBtn" onclick="toggleAmbient('rain')"><i class="fa-solid fa-cloud-rain"></i> Rain Sound 🌧️</button>
-            <button id="lofiBtn" onclick="toggleAmbient('lofi')"><i class="fa-solid fa-compact-disc"></i> Lo-Fi Study Beats 🎧</button>
-            <button id="birdsBtn" onclick="toggleAmbient('birds')"><i class="fa-solid fa-dove"></i> Forest Birds 🐦</button>
-            <button id="wavesBtn" onclick="toggleAmbient('waves')"><i class="fa-solid fa-water"></i> Ocean Waves 🌊</button>
-            <button id="riverBtn" onclick="toggleAmbient('river')"><i class="fa-solid fa-droplet"></i> River Stream 💧</button>
-            <button onclick="toggleBreatheModal()"><i class="fa-solid fa-spa"></i> 1-Min Mind Relaxing 🧘</button>
-        </div>
-    </section>
-
     <section class="quiz-section">
         <div class="quiz-header">
             <h3><i class="fa-solid fa-gamepad"></i> Mega Knowledge Arena (ප්‍රශ්න විචාරාත්මක අංගය)</h3>
@@ -104,7 +90,7 @@
                 <div id="feedbackIcon" class="feedback-icon"></div>
                 <h4 id="feedbackTitle"></h4>
                 <p id="feedbackMsg"></p>
-                <button onclick="nextQuestion()" class="next-q-btn">ඊළඟ ප්‍රශ්නය <i class="fa-solid fa-arrow-right"></i></button>
+                <button onclick="nextQuestion()" class="btn-3d btn-theme" style="margin-top: 15px;">ඊළඟ ප්‍රශ්නය <i class="fa-solid fa-arrow-right"></i></button>
             </div>
         </div>
     </section>
@@ -116,7 +102,7 @@
             <div class="flashcard" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">💡 Photosynthesis (ප්‍රභාසංශ්ලේෂණය)</div>
-                    <div class="flashcard-back">ශාක හිරු එළිය, ජලය සහ CO2 භාවිතයෙන් ආහාර (ග්ලූකෝස්) නිපදවීමේ ක්‍රියාවලියයි.</div>
+                    <div class="flashcard-back">ශාක හිරු එළිය, ජලය සහ CO2 භාවිතයෙන් ආහාර නිපදවීමේ ක්‍රියාවලියයි.</div>
                 </div>
             </div>
             <div class="flashcard" onclick="this.classList.toggle('flipped')">
@@ -173,7 +159,7 @@
         <h3><i class="fa-solid fa-spell-check"></i> Educational Dictionary (තාක්ෂණික ශබ්දකෝෂය)</h3>
         <div class="dict-search">
             <input type="text" id="dictInput" placeholder="English term එකක් Type කරන්න (e.g., Photosynthesis, Velocity)...">
-            <button onclick="searchDictionary()"><i class="fa-solid fa-search"></i> සොයන්න</button>
+            <button class="btn-3d btn-theme" onclick="searchDictionary()"><i class="fa-solid fa-search"></i> සොයන්න</button>
         </div>
         <div id="dictResult" class="dict-result-box"></div>
     </section>
@@ -183,7 +169,7 @@
         <div class="timetable-form">
             <input type="text" id="ttSubject" placeholder="විෂය (Subject)">
             <input type="time" id="ttTime">
-            <button onclick="addTimetableItem()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
+            <button class="btn-3d btn-start" onclick="addTimetableItem()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
         </div>
         <ul id="timetableList" class="timetable-list"></ul>
     </section>
@@ -194,7 +180,7 @@
             <div class="calc-card">
                 <h4>O/L සාමාර්ථ ගණකය</h4>
                 <input type="number" id="olMark" placeholder="ලකුණු ඇතුළත් කරන්න (0-100)" min="0" max="100">
-                <button onclick="calculateOLGrade()">සාමාර්ථය බලන්න</button>
+                <button class="btn-3d btn-theme" onclick="calculateOLGrade()">සාමාර්ථය බලන්න</button>
                 <div id="olResult" class="calc-result"></div>
             </div>
             <div class="calc-card">
@@ -202,7 +188,7 @@
                 <input type="number" id="userMarks" placeholder="ඔබේ ලකුණු">
                 <input type="number" id="meanMarks" placeholder="මධ්‍යනය (Mean)">
                 <input type="number" id="sdMarks" placeholder="සම්මත අපගමනය (SD)">
-                <button onclick="calculateZScore()">Z-Score බලන්න</button>
+                <button class="btn-3d btn-theme" onclick="calculateZScore()">Z-Score බලන්න</button>
                 <div id="zResult" class="calc-result"></div>
             </div>
         </div>
@@ -212,7 +198,7 @@
         <h3><i class="fa-solid fa-note-sticky"></i> මාගේ කෙටි සටහන් (Quick Study Notes)</h3>
         <div class="note-input-group">
             <input type="text" id="noteInput" placeholder="සටහන ඇතුළත් කරන්න...">
-            <button onclick="addNote()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
+            <button class="btn-3d btn-timer" onclick="addNote()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
         </div>
         <ul id="notesList" class="notes-list"></ul>
     </section>
@@ -226,15 +212,40 @@
     </div>
 
     <div id="timerModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content timer-modal-content">
             <span class="close-btn" onclick="toggleTimerModal()">&times;</span>
-            <h3>⏱️ Pomodoro Study Timer</h3>
-            <p>විනාඩි 25ක් පාඩම් කර විනාඩි 5ක විවේකයක් ගන්න!</p>
-            <div id="timerDisplay">25:00</div>
+            <h3>⏳ Custom Study Count Timer</h3>
+            <p class="timer-sub-text">ඔබට අවශ්‍ය කාලය (දවස්, පැය, විනාඩි, තත්පර) ලබා දී Start කරන්න.</p>
+            
+            <div class="timer-inputs">
+                <div class="input-box">
+                    <label>දවස්</label>
+                    <input type="number" id="timerDays" min="0" value="0">
+                </div>
+                <div class="input-box">
+                    <label>පැය</label>
+                    <input type="number" id="timerHours" min="0" value="0">
+                </div>
+                <div class="input-box">
+                    <label>විනාඩි</label>
+                    <input type="number" id="timerMinutes" min="0" value="25">
+                </div>
+                <div class="input-box">
+                    <label>තත්පර</label>
+                    <input type="number" id="timerSeconds" min="0" value="0">
+                </div>
+            </div>
+
+            <button class="btn-3d btn-set" onclick="setCustomTimer()">
+                <i class="fa-solid fa-check"></i> Time එක Set කරන්න
+            </button>
+
+            <div class="timer-display" id="timerDisplay">00d : 00h : 25m : 00s</div>
+
             <div class="timer-controls">
-                <button onclick="startTimer()">Start</button>
-                <button onclick="pauseTimer()">Pause</button>
-                <button onclick="resetTimer()">Reset</button>
+                <button class="btn-3d btn-start" onclick="startTimer()"><i class="fa-solid fa-play"></i> Start</button>
+                <button class="btn-3d btn-pause" onclick="pauseTimer()"><i class="fa-solid fa-pause"></i> Pause</button>
+                <button class="btn-3d btn-reset" onclick="resetTimer()"><i class="fa-solid fa-rotate-right"></i> Reset</button>
             </div>
         </div>
     </div>
@@ -259,7 +270,7 @@
             <input type="email" id="contactEmail" placeholder="ඔබේ Email ලිපිනය (අවශ්‍ය නම් පමණි)">
             <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ ගැටළුව මෙතැන Type කරන්න..." required></textarea>
             
-            <button type="submit" style="background: #25D366;">
+            <button type="submit" class="btn-3d" style="background: #25D366; box-shadow: 0 5px 0 #1eb857;">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp හරහා යවන්න (Send via WhatsApp)
             </button>
         </form>
