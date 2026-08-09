@@ -28,51 +28,71 @@ let timetable = JSON.parse(localStorage.getItem('userTimetable')) || [];
 let userXP = parseInt(localStorage.getItem('userXP')) || 0;
 let userLevel = parseInt(localStorage.getItem('userLevel')) || 1;
 
-// Audio Objects including Natural Relaxation Sounds
-const bgAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3");
-const rainAudio = new Audio("https://cdn.pixabay.com/download/audio/2021/09/06/audio_34d1e2e92c.mp3");
-const lofiAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73223.mp3");
-const birdsAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3"); // Forest Birds
-const wavesAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/06/07/audio_13019cfef9.mp3"); // Ocean Waves
-const riverAudio = new Audio("https://cdn.pixabay.com/download/audio/2021/08/09/audio_29107ec320.mp3"); // River Stream
+// Fully Customizable Study Timer Logic
+let timerInterval;
+let totalSeconds = 25 * 60; // Default 25 Minutes
 
-const winSound = new Audio("https://cdn.pixabay.com/download/audio/2021/08/04/audio_bb630cc098.mp3");
-const loseSound = new Audio("https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c302d68a.mp3");
+function updateTimerDisplay() {
+    const days = Math.floor(totalSeconds / (3600 * 24));
+    const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
-[bgAudio, rainAudio, lofiAudio, birdsAudio, wavesAudio, riverAudio].forEach(a => a.loop = true);
+    const dStr = days.toString().padStart(2, '0');
+    const hStr = hours.toString().padStart(2, '0');
+    const mStr = minutes.toString().padStart(2, '0');
+    const sStr = seconds.toString().padStart(2, '0');
 
-function stopAllAmbient() {
-    [rainAudio, lofiAudio, birdsAudio, wavesAudio, riverAudio].forEach(a => a.pause());
-    document.querySelectorAll(".ambient-controls button").forEach(b => b.classList.remove('active'));
+    document.getElementById("timerDisplay").innerText = `${dStr}d : ${hStr}h : ${mStr}m : ${sStr}s`;
 }
 
-function toggleAmbient(type) {
-    stopAllAmbient();
-    let selectedAudio, btnId;
-    if (type === 'rain') { selectedAudio = rainAudio; btnId = "rainBtn"; }
-    else if (type === 'lofi') { selectedAudio = lofiAudio; btnId = "lofiBtn"; }
-    else if (type === 'birds') { selectedAudio = birdsAudio; btnId = "birdsBtn"; }
-    else if (type === 'waves') { selectedAudio = wavesAudio; btnId = "wavesBtn"; }
-    else if (type === 'river') { selectedAudio = riverAudio; btnId = "riverBtn"; }
+function setCustomTimer() {
+    pauseTimer();
+    const d = parseInt(document.getElementById("timerDays").value) || 0;
+    const h = parseInt(document.getElementById("timerHours").value) || 0;
+    const m = parseInt(document.getElementById("timerMinutes").value) || 0;
+    const s = parseInt(document.getElementById("timerSeconds").value) || 0;
 
-    if (selectedAudio) {
-        selectedAudio.play().then(() => {
-            document.getElementById(btnId).classList.add('active');
-        }).catch(() => alert("Sound Play කිරීමට Click කරන්න."));
+    totalSeconds = (d * 86400) + (h * 3600) + (m * 60) + s;
+
+    if (totalSeconds <= 0) {
+        alert("කරුණාකර අවම වශයෙන් තත්පර 1ක කාලයක් හෝ ඇතුළත් කරන්න!");
+        totalSeconds = 25 * 60;
     }
+    
+    updateTimerDisplay();
 }
 
-function toggleMusic() {
-    const musicBtn = document.getElementById("musicToggleBtn");
-    if (bgAudio.paused) { bgAudio.play().then(() => musicBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Music: On 🎵'); }
-    else { bgAudio.pause(); musicBtn.innerHTML = '<i class="fa-solid fa-music"></i> Music: Off 🔇'; }
+function startTimer() {
+    clearInterval(timerInterval);
+    if (totalSeconds <= 0) return;
+
+    timerInterval = setInterval(() => {
+        if (totalSeconds > 0) {
+            totalSeconds--;
+            updateTimerDisplay();
+        } else {
+            clearInterval(timerInterval);
+            alert("⏰ Study Time අවසන්! සුළු විවේකයක් ලබාගන්න.");
+        }
+    }, 1000);
 }
 
-function displayRandomQuote() {
-    document.getElementById("quoteText").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+function pauseTimer() {
+    clearInterval(timerInterval);
 }
 
-// Render Books & PDF Preview Modal
+function resetTimer() {
+    clearInterval(timerInterval);
+    setCustomTimer();
+}
+
+function toggleTimerModal() {
+    const m = document.getElementById("timerModal");
+    m.style.display = m.style.display === "flex" ? "none" : "flex";
+}
+
+// Display Books & Search
 function displayBooks(items) {
     const grid = document.getElementById("bookGrid");
     grid.innerHTML = "";
@@ -127,7 +147,7 @@ function shareLink(title, url) {
     else { navigator.clipboard.writeText(url); alert("Link එක Copy කරගන්නා ලදී!"); }
 }
 
-// XP & Level System
+// XP System
 function addXP(amount) {
     userXP += amount;
     if (userXP >= 100) { userLevel++; userXP -= 100; alert(`🎉 Level Up! ඔබ දැනට Level ${userLevel} මට්ටමේ සිටී!`); }
@@ -141,20 +161,12 @@ function updateXPDisplay() {
     document.getElementById("xpBarFill").style.width = `${userXP}%`;
 }
 
-// Mega Knowledge Arena Logic
+// Quiz System
 const quizDatabase = {
-    gk: [
-        { q: "ශ්‍රී ලංකාවේ උසම දියඇල්ල කුමක්ද?", opts: ["දියලුම ඇල්ල", "බඹරකන්ද ඇල්ල", "දුන්හිඳ ඇල්ල", "රත්න ඇල්ල"], ans: 1, exp: "බඹරකන්ද ඇල්ල මීටර් 263ක උසින් යුක්ත වන අතර එය ශ්‍රී ලංකාවේ උසම දියඇල්ලයි." }
-    ],
-    science: [
-        { q: "ශාක ප්‍රභාසංශ්ලේෂණය සඳහා ලබාගන්නා වායුව කුමක්ද?", opts: ["ඔක්සිජන්", "කාබන්ඩයොක්සයිඩ්", "නයිට්‍රජන්", "හයිඩ්‍රජන්"], ans: 1, exp: "ශාක ආහාර නිපදවීමට කාබන්ඩයොක්සයිඩ් උරාගනී." }
-    ],
-    history: [
-        { q: "සිගිරිය නිර්මාණය කරන ලද්දේ කවුරුන් විසින්ද?", opts: ["දුටුගැමුණු රජු", "කාශ්‍යප රජු", "පරාක්‍රමබාහු රජු", "ධාතුසේන රජු"], ans: 1, exp: "පළමුවන කාශ්‍යප රජතුමන් විසින් සීගිරිය නිර්මාණය කරන ලදී." }
-    ],
-    grade5: [
-        { q: "ශ්‍රී ලංකාවේ ජාතික පුෂ්පය කුමක්ද?", opts: ["නෙළුම් මල", "මානෙල් මල", "නිල් මානෙල් මල", "සමන් පිච්ච"], ans: 2, exp: "ශ්‍රී ලංකාවේ ජාතික පුෂ්පය නිල් මානෙල් මලයි." }
-    ]
+    gk: [{ q: "ශ්‍රී ලංකාවේ උසම දියඇල්ල කුමක්ද?", opts: ["දියලුම ඇල්ල", "බඹරකන්ද ඇල්ල", "දුන්හිඳ ඇල්ල", "රත්න ඇල්ල"], ans: 1, exp: "බඹරකන්ද ඇල්ල මීටර් 263ක උසින් යුක්ත වන අතර එය ශ්‍රී ලංකාවේ උසම දියඇල්ලයි." }],
+    science: [{ q: "ශාක ප්‍රභාසංශ්ලේෂණය සඳහා ලබාගන්නා වායුව කුමක්ද?", opts: ["ඔක්සිජන්", "කාබන්ඩයොක්සයිඩ්", "නයිට්‍රජන්", "හයිඩ්‍රජන්"], ans: 1, exp: "ශාක ආහාර නිපදවීමට කාබන්ඩයොක්සයිඩ් උරාගනී." }],
+    history: [{ q: "සිගිරිය නිර්මාණය කරන ලද්දේ කවුරුන් විසින්ද?", opts: ["දුටුගැමුණු රජු", "කාශ්‍යප රජු", "පරාක්‍රමබාහු රජු", "ධාතුසේන රජු"], ans: 1, exp: "පළමුවන කාශ්‍යප රජතුමන් විසින් සීගිරිය නිර්මාණය කරන ලදී." }],
+    grade5: [{ q: "ශ්‍රී ලංකාවේ ජාතික පුෂ්පය කුමක්ද?", opts: ["නෙළුම් මල", "මානෙල් මල", "නිල් මානෙල් මල", "සමන් පිච්ච"], ans: 2, exp: "ශ්‍රී ලංකාවේ ජාතික පුෂ්පය නිල් මානෙල් මලයි." }]
 };
 
 let currentCat = "gk", currentQIndex = 0, userScore = 0, userStreak = 0;
@@ -190,8 +202,6 @@ function checkAnswer(selected, correct, explanation) {
         document.getElementById("feedbackIcon").innerHTML = "🎉 🏆 🌟";
         document.getElementById("feedbackTitle").innerText = "නියමයි! පිළිතුර 100% ක් නිවැරදියි!";
         document.getElementById("feedbackMsg").innerText = `💡 කරුණු: ${explanation}`;
-
-        try { winSound.play(); } catch(e){}
     } else {
         userStreak = 0;
         document.getElementById("streakDisplay").innerText = userStreak;
@@ -199,8 +209,6 @@ function checkAnswer(selected, correct, explanation) {
         document.getElementById("feedbackIcon").innerHTML = "😢 💔 🔄";
         document.getElementById("feedbackTitle").innerText = "අයියෝ වැරදියි! නැවත උත්සාහ කරමු!";
         document.getElementById("feedbackMsg").innerText = `💡 නිවැරදි පිළිතුර: ${explanation}`;
-
-        try { loseSound.play(); } catch(e){}
     }
     feedbackBox.classList.remove("hidden");
 }
@@ -231,7 +239,7 @@ function addTimetableItem() {
 }
 function deleteTTItem(i) { timetable.splice(i, 1); localStorage.setItem('userTimetable', JSON.stringify(timetable)); renderTimetable(); }
 
-// Calculators, Notes & WhatsApp
+// Calculators & Notes
 function calculateOLGrade() {
     const mark = parseInt(document.getElementById("olMark").value);
     const res = document.getElementById("olResult");
@@ -274,17 +282,17 @@ function toggleTheme() {
     document.getElementById("themeToggleBtn").innerHTML = isDark ? '<i class="fa-solid fa-sun"></i> Light' : '<i class="fa-solid fa-moon"></i> Dark';
 }
 
-function toggleTimerModal() { const m = document.getElementById("timerModal"); m.style.display = m.style.display === "flex" ? "none" : "flex"; }
 function toggleBreatheModal() { const m = document.getElementById("breatheModal"); m.style.display = m.style.display === "flex" ? "none" : "flex"; }
 
 window.onscroll = () => { document.getElementById("backToTopBtn").style.display = (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) ? "block" : "none"; };
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// Init
+// Initialization
 if (localStorage.getItem('theme') === 'dark') document.body.classList.add("dark-mode");
 displayBooks(books);
 renderNotes();
 renderTimetable();
 loadQuizQuestion();
-displayRandomQuote();
+document.getElementById("quoteText").innerText = quotes[Math.floor(Math.random() * quotes.length)];
 updateXPDisplay();
+updateTimerDisplay();
