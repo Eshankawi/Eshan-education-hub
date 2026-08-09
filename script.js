@@ -1,35 +1,36 @@
-// Eshan Kavishka's Expanded Links Database
+// Eshan Kavishka's Expanded Links Database (Added grade field)
 const books = [
     // Textbooks
-    { id: 1, title: "DP Education 🎓", category: "textbook", description: "1-13 ශ්‍රේණි සඳහා නොමිලේ වීඩියෝ පාඩම් සහ අධ්‍යාපනික පාඨමාලා", link: "https://www.dpeducation.lk/" },
-    { id: 2, title: "අධ්‍යාපනික ප්‍රකාශන දෙපාර්තමේන්තුව 📚", category: "textbook", description: "1 ශ්‍රේණියේ සිට 13 ශ්‍රේණිය දක්වා සියලුම නිල පෙළපොත් නොමිලේ Download කරගන්න", link: "http://www.edupub.gov.lk/BooksDownload.php" },
+    { id: 1, title: "DP Education 🎓", category: "textbook", grade: "1-5", description: "1-13 ශ්‍රේණි සඳහා නොමිලේ වීඩියෝ පාඩම් සහ අධ්‍යාපනික පාඨමාලා", link: "https://www.dpeducation.lk/" },
+    { id: 2, title: "අධ්‍යාපනික ප්‍රකාශන දෙපාර්තමේන්තුව 📚", category: "textbook", grade: "all", description: "1 ශ්‍රේණියේ සිට 13 ශ්‍රේණිය දක්වා සියලුම නිල පෙළපොත් නොමිලේ Download කරගන්න", link: "http://www.edupub.gov.lk/BooksDownload.php" },
     
     // Past Papers & Notes
-    { id: 3, title: "Doenets.lk - විභාග දෙපාර්තමේන්තුව 📝", category: "paper", description: "ශ්‍රී ලංකා විභාග දෙපාර්තමේන්තුවේ නිල පසුගිය විභාග ප්‍රශ්න පත්‍ර එකතුව", link: "https://doenets.lk/pastpapers" },
-    { id: 4, title: "Past Papers Wiki 📑", category: "paper", description: "ශ්‍රී ලංකාවේ O/L, A/L සහ ශිෂ්‍යත්ව පසුගිය ප්‍රශ්න පත්‍ර සහ පිළිතුරු පත්‍ර", link: "https://pastpapers.wiki/" },
-    { id: 5, title: "GovDoc - O/L Past Papers 📄", category: "paper", description: "අධ්‍යයන පොදු සහතික පත්‍ර (සාමාන්‍ය පෙළ) පසුගිය විභාග ප්‍රශ්න පත්‍ර එකතුව", link: "https://govdoc.lk/category/past-papers/gce-ordinary-level-exam" },
-    { id: 6, title: "Nine A Paper - Short Notes ✍️", category: "paper", description: "සාමාන්‍ය පෙළ විෂයන් සඳහා කෙටි සටහන් සහ අධ්‍යයන ද්‍රව්‍ය එකතුව", link: "https://nineapaper.com/short-note/" },
-    { id: 7, title: "ShortnotesLK 📌", category: "paper", description: "සාමාන්‍ය පෙළ සහ උසස් පෙළ විෂයන් සඳහා කෙටි සටහන් (Short Notes) එකතුව", link: "https://www.shortnoteslk.trade/" },
+    { id: 3, title: "Doenets.lk - විභාග දෙපාර්තමේන්තුව 📝", category: "paper", grade: "ol", description: "ශ්‍රී ලංකා විභාග දෙපාර්තමේන්තුවේ නිල පසුගිය විභාග ප්‍රශ්න පත්‍ර එකතුව", link: "https://doenets.lk/pastpapers" },
+    { id: 4, title: "Past Papers Wiki 📑", category: "paper", grade: "al", description: "ශ්‍රී ලංකාවේ O/L, A/L සහ ශිෂ්‍යත්ව පසුගිය ප්‍රශ්න පත්‍ර සහ පිළිතුරු පත්‍ර", link: "https://pastpapers.wiki/" },
+    { id: 5, title: "GovDoc - O/L Past Papers 📄", category: "paper", grade: "ol", description: "අධ්‍යයන පොදු සහතික පත්‍ර (සාමාන්‍ය පෙළ) පසුගිය විභාග ප්‍රශ්න පත්‍ර එකතුව", link: "https://govdoc.lk/category/past-papers/gce-ordinary-level-exam" },
+    { id: 6, title: "Nine A Paper - Short Notes ✍️", category: "paper", grade: "ol", description: "සාමාන්‍ය පෙළ විෂයන් සඳහා කෙටි සටහන් සහ අධ්‍යයන ද්‍රව්‍ය එකතුව", link: "https://nineapaper.com/short-note/" },
+    { id: 7, title: "ShortnotesLK 📌", category: "paper", grade: "al", description: "සාමාන්‍ය පෙළ සහ උසස් පෙළ විෂයන් සඳහා කෙටි සටහන් (Short Notes) එකතුව", link: "https://www.shortnoteslk.trade/" },
     
-    // Educational YouTube Channels (Channel NIE එකතු කර ඇත)
-    { id: 8, title: "Channel NIE - ජාතික අධ්‍යාපන ආයතනය 📺", category: "youtube", description: "ජාතික අධ්‍යාපන ආයතනයේ නිල අධ්‍යාපනික වීඩියෝ සහ පාඩම් මාලා", link: "https://channelnie.nie.ac.lk/" },
-    { id: 9, title: "DP Education YouTube Channel 🎥", category: "youtube", description: "සියලුම ශ්‍රේණිවල පාඩම් සජීවීව සහ පටිගත කළ වීඩියෝ ලෙස නරඹන්න", link: "https://www.youtube.com/@DPEducationLK" },
-    { id: 10, title: "Nenasala Educational Videos 📺", category: "youtube", description: "පාසල් විෂය නිර්දේශයට අදාළ සරල වීඩියෝ පාඩම් එකතුව", link: "https://www.youtube.com/results?search_query=nenasala+education+sri+lanka" },
+    // Educational YouTube Channels
+    { id: 8, title: "Channel NIE - ජාතික අධ්‍යාපන ආයතනය 📺", category: "youtube", grade: "6-9", description: "ජාතික අධ්‍යාපන ආයතනයේ නිල අධ්‍යාපනික වීඩියෝ සහ පාඩම් මාලා", link: "https://channelnie.nie.ac.lk/" },
+    { id: 9, title: "DP Education YouTube Channel 🎥", category: "youtube", grade: "all", description: "සියලුම ශ්‍රේණිවල පාඩම් සජීවීව සහ පටිගත කළ වීඩියෝ ලෙස නරඹන්න", link: "https://www.youtube.com/@DPEducationLK" },
+    { id: 10, title: "Nenasala Educational Videos 📺", category: "youtube", grade: "6-9", description: "පාසල් විෂය නිර්දේශයට අදාළ සරල වීඩියෝ පාඩම් එකතුව", link: "https://www.youtube.com/results?search_query=nenasala+education+sri+lanka" },
     
     // Story Books for Kids
-    { id: 11, title: "Room to Read Sri Lanka 📕", category: "story", description: "පොඩි අයට කියවීමට ලස්සන සිංහල සහ ඉංග්‍රීසි ළමා කතා පොත් එකතුව", link: "https://www.literacycloud.org/" },
-    { id: 12, title: "Children's Story Books PDF 📚", category: "story", description: "ළමුන්ගේ මනස දියුණු කරන චරිත ගොඩනංවන කතා පොත්", link: "https://e-thaksalawa.moe.gov.lk/" },
+    { id: 11, title: "Room to Read Sri Lanka 📕", category: "story", grade: "1-5", description: "පොඩි අයට කියවීමට ලස්සන සිංහල සහ ඉංග්‍රීසි ළමා කතා පොත් එකතුව", link: "https://www.literacycloud.org/" },
+    { id: 12, title: "Children's Story Books PDF 📚", category: "story", grade: "1-5", description: "ළමුන්ගේ මනස දියුණු කරන චරිත ගොඩනංවන කතා පොත්", link: "https://e-thaksalawa.moe.gov.lk/" },
 
     // Grade 5 Scholarship
-    { id: 13, title: "Grade 5 Scholarship Resources 🌟", category: "grade5", description: "5 ශ්‍රේණිය ශිෂ්‍යත්ව විභාගයට අදාළ පසුගිය ප්‍රශ්න පත්‍ර සහ ආදර්ශ ප්‍රශ්න", link: "https://pastpapers.wiki/category/grade-05/" },
+    { id: 13, title: "Grade 5 Scholarship Resources 🌟", category: "grade5", grade: "1-5", description: "5 ශ්‍රේණිය ශිෂ්‍යත්ව විභාගයට අදාළ පසුගිය ප්‍රශ්න පත්‍ර සහ ආදර්ශ ප්‍රශ්න", link: "https://pastpapers.wiki/category/grade-05/" },
 
     // News
-    { id: 14, title: "News.lk - රජයේ නිල පුවත් 📰", category: "news", description: "ශ්‍රී ලංකා රජයේ නිල පුවත් සහ පුවත්පත් වාර්තා එකතුව", link: "https://www.news.lk/" },
-    { id: 15, title: "Ada Derana News 🌐", category: "news", description: "ශ්‍රී ලංකාවේ ප්‍රමුඛතම පුවත් වෙබ් අඩවියෙන් සියලුම නවතම තොරතුරු", link: "https://adaderana.lk/" },
-    { id: 16, title: "Newsfirst English 🗞️", category: "news", description: "ශ්‍රී ලංකාවේ සහ ලෝකයේ නවතම පුවත් සහ තොරතුරු", link: "https://english.newsfirst.lk/" }
+    { id: 14, title: "News.lk - රජයේ නිල පුවත් 📰", category: "news", grade: "all", description: "ශ්‍රී ලංකා රජයේ නිල පුවත් සහ පුවත්පත් වාර්තා එකතුව", link: "https://www.news.lk/" },
+    { id: 15, title: "Ada Derana News 🌐", category: "news", grade: "all", description: "ශ්‍රී ලංකාවේ ප්‍රමුඛතම පුවත් වෙබ් අඩවියෙන් සියලුම නවතම තොරතුරු", link: "https://adaderana.lk/" },
+    { id: 16, title: "Newsfirst English 🗞️", category: "news", grade: "all", description: "ශ්‍රී ලංකාවේ සහ ලෝකයේ නවතම පුවත් සහ තොරතුරු", link: "https://english.newsfirst.lk/" }
 ];
 
 let favorites = JSON.parse(localStorage.getItem('favBooks')) || [];
+let userNotes = JSON.parse(localStorage.getItem('userStudyNotes')) || [];
 
 // Display Cards Function
 function displayBooks(items) {
@@ -100,6 +101,16 @@ function filterCategory(category) {
     }
 }
 
+// Grade Filter Function
+function filterGrade(grade) {
+    if (grade === 'all') {
+        displayBooks(books);
+    } else {
+        const filtered = books.filter(b => b.grade === grade || b.grade === 'all');
+        displayBooks(filtered);
+    }
+}
+
 // Share Function
 function shareLink(title, url) {
     if (navigator.share) {
@@ -151,15 +162,60 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Light / Dark Mode Toggle
+// Theme Persistence Functionality
+function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const btn = document.getElementById("themeToggleBtn");
+    if (savedTheme === 'dark') {
+        document.body.classList.add("dark-mode");
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+    } else {
+        document.body.classList.remove("dark-mode");
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
+    }
+}
+
 function toggleTheme() {
     document.body.classList.toggle("dark-mode");
     const btn = document.getElementById("themeToggleBtn");
     if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem('theme', 'dark');
         btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
     } else {
+        localStorage.setItem('theme', 'light');
         btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
     }
+}
+
+// Quick Notes Saver Logic
+function renderNotes() {
+    const list = document.getElementById("notesList");
+    list.innerHTML = "";
+    userNotes.forEach((note, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span>📌 ${note}</span>
+            <button onclick="deleteNote(${index})"><i class="fa-solid fa-trash"></i></button>
+        `;
+        list.appendChild(li);
+    });
+}
+
+function addNote() {
+    const input = document.getElementById("noteInput");
+    const val = input.value.trim();
+    if (val !== "") {
+        userNotes.push(val);
+        localStorage.setItem('userStudyNotes', JSON.stringify(userNotes));
+        input.value = "";
+        renderNotes();
+    }
+}
+
+function deleteNote(index) {
+    userNotes.splice(index, 1);
+    localStorage.setItem('userStudyNotes', JSON.stringify(userNotes));
+    renderNotes();
 }
 
 // Background Music Toggle
@@ -232,6 +288,8 @@ function resetTimer() {
     updateTimerDisplay();
 }
 
-// Initial Load
+// Initial Load Functions
+applySavedTheme();
 displayBooks(books);
+renderNotes();
 updateCountdown();
