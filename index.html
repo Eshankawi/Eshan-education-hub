@@ -16,6 +16,7 @@
         </div>
         
         <div class="controls">
+            <button id="timerBtn" onclick="toggleTimerModal()"><i class="fa-solid fa-stopwatch"></i> Study Timer</button>
             <button id="musicToggleBtn" onclick="toggleMusic()">
                 <i class="fa-solid fa-music"></i> Music: Off 🔇
             </button>
@@ -26,7 +27,7 @@
     </nav>
 
     <audio id="bgMusic" loop preload="auto">
-        <source src="bg-music.mp3" type="audio/mpeg">
+        <source src="new-music.mp3" type="audio/mpeg">
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
     </audio>
 
@@ -35,6 +36,11 @@
         <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
         <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, YouTube සහ News එකම තැනකින්!</p>
         
+        <div class="countdown-box">
+            <span>🎓 ඊළඟ විභාගයට තව: </span>
+            <strong id="examCountdown">ගණනය වෙමින් පවතී...</strong>
+        </div>
+
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, වීඩියෝ හෝ පුවත් සේවය සොයන්න...">
@@ -67,6 +73,7 @@
             <h3><i class="fa-solid fa-list-check"></i> ප්‍රවර්ග (Categories)</h3>
             <ul>
                 <li onclick="filterCategory('all')"><i class="fa-solid fa-border-all"></i> 📚 සියල්ල (All)</li>
+                <li onclick="filterCategory('favorites')"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> ⭐ මාගේ Favorites</li>
                 <li onclick="filterCategory('textbook')"><i class="fa-solid fa-book-open"></i> 📖 අච්චු පොත් & පාඩම්</li>
                 <li onclick="filterCategory('paper')"><i class="fa-solid fa-file-pen"></i> 📝 Past Papers & Notes</li>
                 <li onclick="filterCategory('youtube')"><i class="fa-brands fa-youtube"></i> 🎥 YouTube Lessons</li>
@@ -77,9 +84,22 @@
         </aside>
 
         <main class="content">
-            <div id="bookGrid" class="grid">
-                </div>
+            <div id="bookGrid" class="grid"></div>
         </main>
+    </div>
+
+    <div id="timerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="toggleTimerModal()">&times;</span>
+            <h3>⏱️ Pomodoro Study Timer</h3>
+            <p>විනාඩි 25ක් පාඩම් කර විනාඩි 5ක විවේකයක් ගන්න!</p>
+            <div id="timerDisplay">25:00</div>
+            <div class="timer-controls">
+                <button onclick="startTimer()">Start</button>
+                <button onclick="pauseTimer()">Pause</button>
+                <button onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
     </div>
 
     <section class="contact-section">
