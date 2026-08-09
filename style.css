@@ -123,6 +123,10 @@ header h1 { font-size: 2.3rem; animation: bounce 2s infinite; }
 .sidebar li { padding: 12px; margin-bottom: 8px; border-radius: 10px; cursor: pointer; background: var(--bg-color); font-weight: 500; transition: all 0.3s; }
 .sidebar li:hover { background: #70a1ff; color: white; transform: translateX(5px); }
 
+/* Grade Filter Styles */
+.grade-filter-container { margin-top: 25px; border-top: 2px dashed #ddd; padding-top: 15px; }
+.grade-filter-container select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #70a1ff; background: var(--bg-color); color: var(--text-color); font-size: 0.95rem; font-weight: bold; cursor: pointer; outline: none; }
+
 .content { flex: 3; min-width: 300px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
 
@@ -140,6 +144,16 @@ header h1 { font-size: 2.3rem; animation: bounce 2s infinite; }
 .download-btn { flex: 3; text-align: center; background: linear-gradient(45deg, #2ed573, #1e90ff); color: white; padding: 10px; text-decoration: none; border-radius: 8px; font-weight: bold; }
 .share-btn { flex: 1; border: none; background: #ff4757; color: white; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s; }
 .share-btn:hover { background: #ff6b6b; }
+
+/* Quick Notes Saver Styles */
+.notes-section { max-width: 1200px; margin: 30px auto; padding: 25px; background: var(--card-bg); border-radius: 15px; box-shadow: var(--shadow); }
+.notes-section h3 { margin-bottom: 10px; color: #3742fa; }
+.note-input-group { display: flex; gap: 10px; margin: 15px 0; }
+.note-input-group input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; outline: none; font-size: 0.95rem; }
+.note-input-group button { padding: 12px 20px; border: none; background: #1dd1a1; color: white; font-weight: bold; border-radius: 8px; cursor: pointer; }
+.notes-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.notes-list li { background: var(--bg-color); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #ff9f43; }
+.notes-list button { background: #ff4757; border: none; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
 
 /* Modal Box for Study Timer */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
