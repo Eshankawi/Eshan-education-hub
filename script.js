@@ -114,6 +114,29 @@ function shareLink(title, url) {
     }
 }
 
+// WhatsApp Direct Message Function
+function sendToWhatsApp(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("contactName").value.trim();
+    const email = document.getElementById("contactEmail").value.trim() || "ලබාදී නැත";
+    const message = document.getElementById("contactMessage").value.trim();
+
+    const phoneNumber = "94789119916";
+
+    const fullText = `👋 *Eshan Education Hub - නව පණිවිඩයක්!*\n\n` +
+                     `👤 *නම:* ${name}\n` +
+                     `📧 *Email:* ${email}\n\n` +
+                     `📝 *ගැටළුව/පණිවිඩය:*\n${message}\n\n` +
+                     `📌 _(Screenshot එකක් ඇත්නම් කරුණාකර මෙතැනට Attach කරන්න)_`;
+
+    const encodedText = encodeURIComponent(fullText);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedText}`;
+
+    window.open(whatsappUrl, '_blank');
+    document.getElementById("feedbackForm").reset();
+}
+
 // Back to Top Button Logic
 window.onscroll = function() {
     const topBtn = document.getElementById("backToTopBtn");
@@ -126,13 +149,6 @@ window.onscroll = function() {
 
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Handle Contact Feedback Form
-function handleFeedback(e) {
-    e.preventDefault();
-    alert("ඔබගේ අදහස ලබාදීමට ස්තූතියි, Eshan වෙත පණිවිඩය ලැබුණි! 🚀");
-    document.getElementById("feedbackForm").reset();
 }
 
 // Light / Dark Mode Toggle
