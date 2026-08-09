@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eshan Kavishka - Educational Hub</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -13,19 +14,30 @@
         <div class="logo">
             <i class="fa-solid fa-graduation-cap animated-icon"></i> Eshan Education
         </div>
-        <button id="themeToggleBtn" onclick="toggleTheme()">
-            <i class="fa-solid fa-moon"></i> Dark Mode
-        </button>
+        
+        <div class="controls">
+            <button id="musicToggleBtn" onclick="toggleMusic()">
+                <i class="fa-solid fa-music"></i> Music: Off 🔇
+            </button>
+            <button id="themeToggleBtn" onclick="toggleTheme()">
+                <i class="fa-solid fa-moon"></i> Dark Mode
+            </button>
+        </div>
     </nav>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="bg-music.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
 
     <header class="rgb-border">
         <h1>✨ අධ්‍යාපනික සම්පත් පියස ✨</h1>
         <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
-        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes සහ News එකම තැනකින්!</p>
+        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, YouTube සහ News එකම තැනකින්!</p>
         
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන හෝ පුවත් සේවය සොයන්න...">
+            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, වීඩියෝ හෝ පුවත් සේවය සොයන්න...">
         </div>
     </header>
 
@@ -57,6 +69,9 @@
                 <li onclick="filterCategory('all')"><i class="fa-solid fa-border-all"></i> 📚 සියල්ල (All)</li>
                 <li onclick="filterCategory('textbook')"><i class="fa-solid fa-book-open"></i> 📖 අච්චු පොත් & පාඩම්</li>
                 <li onclick="filterCategory('paper')"><i class="fa-solid fa-file-pen"></i> 📝 Past Papers & Notes</li>
+                <li onclick="filterCategory('youtube')"><i class="fa-brands fa-youtube"></i> 🎥 YouTube Lessons</li>
+                <li onclick="filterCategory('story')"><i class="fa-solid fa-book-bookmark"></i> 📕 ළමා & කතා පොත්</li>
+                <li onclick="filterCategory('grade5')"><i class="fa-solid fa-award"></i> 🌟 ශිෂ්‍යත්වය (Grade 5)</li>
                 <li onclick="filterCategory('news')"><i class="fa-solid fa-newspaper"></i> 📰 අධ්‍යාපනික පුවත්</li>
             </ul>
         </aside>
@@ -67,6 +82,17 @@
         </main>
     </div>
 
+    <section class="contact-section">
+        <h3><i class="fa-solid fa-paper-plane"></i> අදහස් යොමු කරන්න / අලුත් Links යෝජනා කරන්න</h3>
+        <p>ඔබට එකතු කිරීමට අවශ්‍ය අධ්‍යාපනික ලින්ක් එකක් තිබේ නම් හෝ වෙනත් අදහසක් ඇත්නම් අපට දන්වන්න.</p>
+        <form id="feedbackForm" onsubmit="handleFeedback(event)">
+            <input type="text" id="contactName" placeholder="ඔබේ නම" required>
+            <input type="email" id="contactEmail" placeholder="ඔබේ Email ලිපිනය (අවශ්‍ය නම් පමණි)">
+            <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ Link එක මෙතැන Type කරන්න..." required></textarea>
+            <button type="submit"><i class="fa-solid fa-paper-plane"></i> යවන්න (Send)</button>
+        </form>
+    </section>
+
     <section class="disclaimer-box">
         <h3><i class="fa-solid fa-shield-halved"></i> ප්‍රකාශන හිමිකම් සහ වගකීම් නිමේෂය (Disclaimer)</h3>
         <p>
@@ -76,6 +102,10 @@
             මෙම වෙබ් අඩවිය නිර්මාණය කර ඇත්තේ කිසිදු වාණිජමය හෝ අයහපත් අරමුණකින් තොරව, <strong>ශ්‍රී ලාංකේය සිසුන්ට සහ පරිශීලකයින්ට එම අධ්‍යාපනික සම්පත් එකම තැනකින් පහසුවෙන් සොයාගැනීමට (Easy Navigation)</strong> උපකාර කිරීමේ පරමාර්ථයෙන් පමණි. සියලුම Links මගින් පරිශීලකයා සෘජුවම අදාළ නිල වෙබ් අඩවි වෙත යොමු කරනු ලැබේ.
         </p>
     </section>
+
+    <button id="backToTopBtn" onclick="scrollToTop()">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <footer>
         <p>&copy; 2026 <strong>Eshan Kavishka</strong>. All Rights Reserved. | Designed for Joyful Learning 🎓</p>
