@@ -27,8 +27,13 @@
     </nav>
 
     <audio id="bgMusic" loop preload="auto">
-        <source src="new-music.mp3" type="audio/mpeg">
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="rainSound" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2021/09/06/audio_34d1e2e92c.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="lofiSound" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73223.mp3" type="audio/mpeg">
     </audio>
 
     <header class="rgb-border">
@@ -36,9 +41,19 @@
         <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
         <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, YouTube සහ News එකම තැනකින්!</p>
         
-        <div class="countdown-box">
-            <span>🎓 ඊළඟ විභාගයට තව: </span>
-            <strong id="examCountdown">ගණනය වෙමින් පවතී...</strong>
+        <div class="countdowns-container">
+            <div class="countdown-card">
+                <span>🎓 5 ශිෂ්‍යත්වය: </span>
+                <strong id="grade5Countdown">ගණනය වේ...</strong>
+            </div>
+            <div class="countdown-card">
+                <span>📘 O/L විභාගය: </span>
+                <strong id="olCountdown">ගණනය වේ...</strong>
+            </div>
+            <div class="countdown-card">
+                <span>📕 A/L විභාගය: </span>
+                <strong id="alCountdown">ගණනය වේ...</strong>
+            </div>
         </div>
 
         <div class="search-box">
@@ -46,6 +61,14 @@
             <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, වීඩියෝ හෝ පුවත් සේවය සොයන්න...">
         </div>
     </header>
+
+    <section class="ambient-section">
+        <h3><i class="fa-solid fa-headphones"></i> Focus Ambient Sounds (පාඩම් කරන විට අසන්න)</h3>
+        <div class="ambient-controls">
+            <button id="rainBtn" onclick="toggleAmbient('rain')"><i class="fa-solid fa-cloud-rain"></i> Rain Sound 🌧️</button>
+            <button id="lofiBtn" onclick="toggleAmbient('lofi')"><i class="fa-solid fa-compact-disc"></i> Lo-Fi Study Beats 🎧</button>
+        </div>
+    </section>
 
     <section class="motivation-banner">
         <div class="banner-card">
@@ -61,6 +84,15 @@
                 <h3>දිනපතා උත්සාහ කරන්න! 🚀</h3>
                 <p>කුඩා පියවරක් වුවද සෑම දිනකම ඉදිරියට තබන්න. ඔබේ අනාගතය අද ඔබ කරන කැපවීම මත තීරණය වේ!</p>
             </div>
+        </div>
+    </section>
+
+    <section class="quiz-section">
+        <h3><i class="fa-solid fa-circle-question"></i> දෛනික ප්‍රශ්න විචාරාත්මක අංගය (Daily Quiz)</h3>
+        <div id="quizContainer" class="quiz-box">
+            <p id="quizQuestion">ප්‍රශ්නය ලබා ගනිමින් පවතී...</p>
+            <div id="quizOptions" class="quiz-options"></div>
+            <p id="quizResult" class="quiz-result"></p>
         </div>
     </section>
 
@@ -99,11 +131,31 @@
         </main>
     </div>
 
+    <section class="calculator-section">
+        <h3><i class="fa-solid fa-calculator"></i> Exam Marks & Z-Score Calculator</h3>
+        <div class="calc-grid">
+            <div class="calc-card">
+                <h4>O/L සාමාර්ථ ගණකය</h4>
+                <input type="number" id="olMark" placeholder="ලකුණු ඇතුළත් කරන්න (0-100)" min="0" max="100">
+                <button onclick="calculateOLGrade()">සාමාර්ථය බලන්න</button>
+                <div id="olResult" class="calc-result"></div>
+            </div>
+            <div class="calc-card">
+                <h4>A/L Simple Z-Score Calculator</h4>
+                <input type="number" id="userMarks" placeholder="ඔබේ සාමාන්‍ය ලකුණු">
+                <input type="number" id="meanMarks" placeholder="කාණ්ඩයේ මධ්‍යනය (Mean)">
+                <input type="number" id="sdMarks" placeholder="සම්මත අපගමනය (SD)">
+                <button onclick="calculateZScore()">Z-Score ගණනය කරන්න</button>
+                <div id="zResult" class="calc-result"></div>
+            </div>
+        </div>
+    </section>
+
     <section class="notes-section">
         <h3><i class="fa-solid fa-note-sticky"></i> මාගේ කෙටි සටහන් (Quick Study Notes)</h3>
         <p>පාඩම් කරන අතරතුර වැදගත් කරුණු මෙතැන සටහන් කර Save කර තබාගන්න.</p>
         <div class="note-input-group">
-            <input type="text" id="noteInput" placeholder="සටහන ඇතුළත් කරන්න (උදා: හෙට පෙ.ව. 8.00 ට Science Past Paper එක செய்ய)...">
+            <input type="text" id="noteInput" placeholder="සටහන ඇතුළත් කරන්න...">
             <button onclick="addNote()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
         </div>
         <ul id="notesList" class="notes-list"></ul>
@@ -149,7 +201,7 @@
             මෙම වෙබ් අඩවියෙහි ඇතුළත් සියලුම පෙළපොත්, පසුගිය විභාග ප්‍රශ්න පත්‍ර, පුවත් සහ අධ්‍යාපනික සටහන්වල <strong>මූලික ප්‍රකාශන හිමිකම් (Copyrights)</strong> සහ අයිතිය ඒවා හිමි නිල ආයතන, දෙපාර්තමේන්තු සහ අදාළ වෙබ් අඩවි සතුවේ.
         </p>
         <p>
-            මෙම වෙබ් අඩවිය නිර්මාණය කර ඇත්තේ කිසිදු වාණිජමය හෝ අයහපත් අරමුණකින් තොරව, <strong>ශ්‍රී ලාංකේය සිසුන්ට සහ පරිශීලකයින්ට එම අධ්‍යාපනික සම්පත් එකම තැනකින් පහසුවෙන් සොයාගැනීමට (Easy Navigation)</strong> උපකාර කිරීමේ පරමාර්ථයෙන් පමණි. සියලුම Links මගින් පරිශීලකයා සෘජුවම අදාළ නිල වෙබ් අඩවි වෙත යොමු කරනු ලැබේ.
+            මෙම වෙබ් අඩවිය නිර්මාණය කර ඇත්තේ කිසිදු වාණිජමය හෝ අයහපත් අරමුණකින් තොරව, <strong>ශ්‍රී ලාංකේය සිසුන්ට සහ පරිශීලකයින්ට එම අධ්‍යාපනික සම්පත් එකම තැනකින් පහසුවෙන් සොයාගැනීමට (Easy Navigation)</strong> උපකාර කිරීමේ පරමාර්ථයෙන් පමණි.
         </p>
     </section>
 
