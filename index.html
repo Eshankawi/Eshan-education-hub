@@ -103,13 +103,22 @@
     </div>
 
     <section class="contact-section">
-        <h3><i class="fa-solid fa-paper-plane"></i> අදහස් යොමු කරන්න / අලුත් Links යෝජනා කරන්න</h3>
-        <p>ඔබට එකතු කිරීමට අවශ්‍ය අධ්‍යාපනික ලින්ක් එකක් තිබේ නම් හෝ වෙනත් අදහසක් ඇත්නම් අපට දන්වන්න.</p>
-        <form id="feedbackForm" onsubmit="handleFeedback(event)">
+        <h3><i class="fa-solid fa-paper-plane"></i> අදහස් යොමු කරන්න / ගැටළු යොමු කරන්න</h3>
+        <p>ඔබගේ ගැටළුව හෝ අදහස පහතින් ඇතුළත් කර WhatsApp හරහා සෘජුවම Eshan වෙත යොමු කරන්න.</p>
+        
+        <form id="feedbackForm" onsubmit="sendToWhatsApp(event)">
             <input type="text" id="contactName" placeholder="ඔබේ නම" required>
             <input type="email" id="contactEmail" placeholder="ඔබේ Email ලිපිනය (අවශ්‍ය නම් පමණි)">
-            <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ Link එක මෙතැන Type කරන්න..." required></textarea>
-            <button type="submit"><i class="fa-solid fa-paper-plane"></i> යවන්න (Send)</button>
+            <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ ගැටළුව මෙතැන Type කරන්න..." required></textarea>
+            
+            <div class="ss-notice">
+                <p><i class="fa-solid fa-image"></i> <strong>Screenshot එකක් ඇතුළත් කිරීමට අවශ්‍යද?</strong></p>
+                <small>පහත Send Button එක එබූ පසු WhatsApp ඇප් එක Open වන අතර, එහිදී ඔයාගේ Screenshot එක Attach කර යවන්න.</small>
+            </div>
+
+            <button type="submit" style="background: #25D366;">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp හරහා යවන්න (Send via WhatsApp)
+            </button>
         </form>
     </section>
 
