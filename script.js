@@ -1,4 +1,4 @@
-// Database
+// Educational Database
 const books = [
     { id: 1, title: "DP Education 🎓", category: "textbook", grade: "1-5", description: "1-13 ශ්‍රේණි සඳහා නොමිලේ වීඩියෝ පාඩම් සහ අධ්‍යාපනික පාඨමාලා", link: "https://www.dpeducation.lk/" },
     { id: 2, title: "අධ්‍යාපනික ප්‍රකාශන දෙපාර්තමේන්තුව 📚", category: "textbook", grade: "all", description: "1 ශ්‍රේණියේ සිට 13 ශ්‍රේණිය දක්වා සියලුම නිල පෙළපොත් නොමිලේ Download කරගන්න", link: "http://www.edupub.gov.lk/BooksDownload.php" },
@@ -16,6 +16,19 @@ const books = [
 
 let favorites = JSON.parse(localStorage.getItem('favBooks')) || [];
 let userNotes = JSON.parse(localStorage.getItem('userStudyNotes')) || [];
+
+// Sound Objects Creation
+const bgAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3");
+const rainAudio = new Audio("https://cdn.pixabay.com/download/audio/2021/09/06/audio_34d1e2e92c.mp3");
+const lofiAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73223.mp3");
+
+// Quiz Winning & Losing Sound Effects
+const winSound = new Audio("https://cdn.pixabay.com/download/audio/2021/08/04/audio_bb630cc098.mp3");
+const loseSound = new Audio("https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c302d68a.mp3");
+
+bgAudio.loop = true;
+rainAudio.loop = true;
+lofiAudio.loop = true;
 
 // Render Books
 function displayBooks(items) {
@@ -72,7 +85,7 @@ function shareLink(title, url) {
     else { navigator.clipboard.writeText(url); alert("Link එක Copy කරගන්නා ලදී!"); }
 }
 
-// Exam Countdowns (Grade 5, O/L, A/L)
+// Countdown Timers
 function startExamCountdowns() {
     const exams = {
         grade5Countdown: new Date("October 15, 2026 09:30:00").getTime(),
@@ -95,54 +108,194 @@ function startExamCountdowns() {
     }, 1000);
 }
 
-// Ambient Sounds Toggle
+// Ambient Focus Sounds System
 function toggleAmbient(type) {
-    const rain = document.getElementById("rainSound");
-    const lofi = document.getElementById("lofiSound");
     const rainBtn = document.getElementById("rainBtn");
     const lofiBtn = document.getElementById("lofiBtn");
 
     if (type === 'rain') {
-        lofi.pause(); lofiBtn.classList.remove('active');
-        if (rain.paused) { rain.play(); rainBtn.classList.add('active'); }
-        else { rain.pause(); rainBtn.classList.remove('active'); }
+        lofiAudio.pause();
+        lofiBtn.classList.remove('active');
+
+        if (rainAudio.paused) {
+            rainAudio.play().then(() => rainBtn.classList.add('active')).catch(() => alert("Sound Play කිරීමට පිටුවට Click එකක් දෙන්න."));
+        } else {
+            rainAudio.pause();
+            rainBtn.classList.remove('active');
+        }
     } else if (type === 'lofi') {
-        rain.pause(); rainBtn.classList.remove('active');
-        if (lofi.paused) { lofi.play(); lofiBtn.classList.add('active'); }
-        else { lofi.pause(); lofiBtn.classList.remove('active'); }
+        rainAudio.pause();
+        rainBtn.classList.remove('active');
+
+        if (lofiAudio.paused) {
+            lofiAudio.play().then(() => lofiBtn.classList.add('active')).catch(() => alert("Sound Play කිරීමට පිටුවට Click එකක් දෙන්න."));
+        } else {
+            lofiAudio.pause();
+            lofiBtn.classList.remove('active');
+        }
     }
 }
 
-// Daily Quiz System
-const quizData = [
-    { q: "ශ්‍රී ලංකාවේ උසම දියඇල්ල කුමක්ද?", opts: ["දියලුම", "බඹරකන්ද", "දුන්හිඳ", "රත්න ඇල්ල"], ans: 1 },
-    { q: "ලෝකයේ විශාලතම මහාද්වීපය කුමක්ද?", opts: ["අප්‍රිකාව", "යුරෝපය", "ආසියාව", "ඇමෙරිකාව"], ans: 2 },
-    { q: "ශාක ප්‍රභාසංශ්ලේෂණය සඳහා ලබාගන්නා වායුව කුමක්ද?", opts: ["ඔක්සිජන්", "කාබන්ඩයොක්සයිඩ්", "නයිට්‍රජන්", "හයිඩ්‍රජන්"], ans: 1 }
-];
+function toggleMusic() {
+    const musicBtn = document.getElementById("musicToggleBtn");
+    if (bgAudio.paused) {
+        bgAudio.play().then(() => {
+            musicBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Music: On 🎵';
+        }).catch(() => alert("Music Play කිරීමට පිටුවට Click එකක් දෙන්න."));
+    } else {
+        bgAudio.pause();
+        musicBtn.innerHTML = '<i class="fa-solid fa-music"></i> Music: Off 🔇';
+    }
+}
 
-function loadQuiz() {
-    const quiz = quizData[Math.floor(Math.random() * quizData.length)];
-    document.getElementById("quizQuestion").innerText = "❓ " + quiz.q;
+// ==========================================
+// MEGA QUIZ SYSTEM & WINNING ANIMATION ENGINE
+// ==========================================
+
+const quizDatabase = {
+    gk: [
+        { q: "ශ්‍රී ලංකාවේ උසම දියඇල්ල කුමක්ද?", opts: ["දියලුම ඇල්ල", "බඹරකන්ද ඇල්ල", "දුන්හිඳ ඇල්ල", "රත්න ඇල්ල"], ans: 1, exp: "බඹරකන්ද ඇල්ල මීටර් 263ක උසින් යුක්ත වන අතර එය ශ්‍රී ලංකාවේ උසම දියඇල්ලයි." },
+        { q: "ලෝකයේ විශාලතම මහාද්වීපය කුමක්ද?", opts: ["අප්‍රිකාව", "යුරෝපය", "ආසියාව", "උතුරු ඇමෙරිකාව"], ans: 2, exp: "ආසියාව යනු ලෝකයේ විශාලතම සහ වැඩිම ජනගහනයක් සහිත මහාද්වීපයයි." },
+        { q: "ශ්‍රී ලංකාවේ දිගම ගංගාව කුමක්ද?", opts: ["කැලණි ගඟ", "කළු ගඟ", "මහවැලි ගඟ", "වලවේ ගඟ"], ans: 2, exp: "මහවැලි ගඟ කිලෝමීටර් 335ක් දිගින් යුක්ත වේ." },
+        { q: "ලෝකයේ කුඩාම රට කුමක්ද?", opts: ["මෝල්ටාව", "වතිකානු නගරය", "මොනාකෝ", "මාලදිවයින"], ans: 1, exp: "වතිකානු නගරය (Vatican City) වර්ග කිලෝමීටර් 0.49 කින් යුත් ලොව කුඩාම රටයි." }
+    ],
+    science: [
+        { q: "ශාක ප්‍රභාසංශ්ලේෂණය සඳහා ලබාගන්නා වායුව කුමක්ද?", opts: ["ඔක්සිජන්", "කාබන්ඩයොක්සයිඩ්", "නයිට්‍රජන්", "හයිඩ්‍රජන්"], ans: 1, exp: "ශාක හිරු එළිය භාවිතයෙන් ආහාර නිපදවීමට කාබන්ඩයොක්සයිඩ් උරාගනී." },
+        { q: "මිනිස් සිරුරේ විශාලතම අභ්‍යන්තර අවයවය කුමක්ද?", opts: ["වකුගඩුව", "හදවත", "අක්මාව", "පෙනහැල්ල"], ans: 2, exp: "අක්මාව (Liver) යනු සිරුරේ ඇති විශාලතම අභ්‍යන්තර අවයවයයි." },
+        { q: "ජලයේ රසායනික සූත්‍රය කුමක්ද?", opts: ["CO2", "H2O", "NaCl", "O2"], ans: 1, exp: "ජලය හයිඩ්‍රජන් පරමාණු 2කින් සහ ඔක්සිජන් පරමාණු 1කින් සෑදී ඇත (H2O)." }
+    ],
+    history: [
+        { q: "සිගිරිය නිර්මාණය කරන ලද්දේ කවුරුන් විසින්ද?", opts: ["දුටුගැමුණු රජු", "කාශ්‍යප රජු", "පරාක්‍රමබාහු රජු", "ධාතුසේන රජු"], ans: 1, exp: "පළමුවන කාශ්‍යප රජතුමන් විසින් ක්‍රි.ව. 5 වන සියවසේදී සීගිරිය නිර්මාණය කරන ලදී." },
+        { q: "ලංකාවේ අවසාන රජතුමා කවුද?", opts: ["ශ්‍රී වික්‍රම රාජසිංහ", "කීර්ති ශ්‍රී රාජසිංහ", "රාජසිංහ 1", "විමලධර්මසූරිය 1"], ans: 0, exp: "1815 දී ඉංග්‍රීසීන් විසින් අල්ලා ගන්නා ලද්දේ ශ්‍රී වික්‍රම රාජසිංහ රජතුමාවයි." }
+    ],
+    grade5: [
+        { q: "ශ්‍රී ලංකාවේ ජාතික පුෂ්පය කුමක්ද?", opts: ["නෙළුම් මල", "මානෙල් මල", "නිල් මානෙල් මල", "සමන් පිච්ච"], ans: 2, exp: "ශ්‍රී ලංකාවේ ජාතික පුෂ්පය නිල් මානෙල් මලයි." },
+        { q: "සූර්යග්‍රහණයක් සිදුවන්නේ කුමක් මැදට පැමිණි විටද?", opts: ["චන්ද්‍රයා", "පෘථිවිය", "හිරු", "අඟහරු"], ans: 0, exp: "සූර්යයා සහ පෘථිවිය අතරට චන්ද්‍රයා පැමිණි විට සූර්යග්‍රහණයක් සිදු වේ." }
+    ]
+};
+
+let currentCat = "gk";
+let currentQIndex = 0;
+let userScore = 0;
+let userStreak = 0;
+
+function loadQuizQuestion() {
+    const qList = quizDatabase[currentCat];
+    if (!qList || qList.length === 0) return;
+
+    const q = qList[currentQIndex % qList.length];
+    document.getElementById("quizQuestion").innerText = `❓ (${currentQIndex + 1}) ${q.q}`;
+    
     const optsDiv = document.getElementById("quizOptions");
     optsDiv.innerHTML = "";
-    document.getElementById("quizResult").innerText = "";
+    document.getElementById("quizFeedback").classList.add("hidden");
 
-    quiz.opts.forEach((opt, idx) => {
+    q.opts.forEach((opt, idx) => {
         const btn = document.createElement("button");
         btn.className = "quiz-opt-btn";
         btn.innerText = opt;
-        btn.onclick = () => {
-            if (idx === quiz.ans) {
-                document.getElementById("quizResult").innerHTML = "<span style='color:#2ed573;'>🎉 නිවැරදියි! ඉතාමත් හොඳයි!</span>";
-            } else {
-                document.getElementById("quizResult").innerHTML = "<span style='color:#ff4757;'>❌ වැරදියි, නැවත උත්සාහ කරන්න!</span>";
-            }
-        };
+        btn.onclick = () => checkAnswer(idx, q.ans, q.exp);
         optsDiv.appendChild(btn);
     });
 }
 
-// Calculators
+function checkAnswer(selected, correct, explanation) {
+    const feedbackBox = document.getElementById("quizFeedback");
+    const iconDiv = document.getElementById("feedbackIcon");
+    const titleObj = document.getElementById("feedbackTitle");
+    const msgObj = document.getElementById("feedbackMsg");
+
+    // Disable all option buttons
+    document.querySelectorAll(".quiz-opt-btn").forEach(btn => btn.disabled = true);
+
+    if (selected === correct) {
+        userScore += 10;
+        userStreak++;
+        document.getElementById("scoreDisplay").innerText = userScore;
+        document.getElementById("streakDisplay").innerText = userStreak;
+
+        feedbackBox.className = "quiz-feedback-card correct-bg";
+        iconDiv.innerHTML = "🎉 🏆 🌟";
+        titleObj.innerText = "නියමයි! පිළිතුර 100% ක් නිවැරදියි!";
+        msgObj.innerText = `💡 කරුණු: ${explanation}`;
+
+        // Play Sound and Launch Winning Animations
+        try { winSound.play(); } catch(e){}
+        triggerConfetti();
+
+    } else {
+        userStreak = 0;
+        document.getElementById("streakDisplay").innerText = userStreak;
+
+        feedbackBox.className = "quiz-feedback-card incorrect-bg";
+        iconDiv.innerHTML = "😢 💔 🔄";
+        titleObj.innerText = "අයියෝ වැරදියි! නැවත උත්සාහ කරමු!";
+        msgObj.innerText = `💡 නිවැරදි පිළිතුර සහ විස්තරය: ${explanation}`;
+
+        try { loseSound.play(); } catch(e){}
+    }
+
+    feedbackBox.classList.remove("hidden");
+}
+
+function nextQuestion() {
+    currentQIndex++;
+    loadQuizQuestion();
+}
+
+function changeQuizCategory(cat) {
+    currentCat = cat;
+    currentQIndex = 0;
+    loadQuizQuestion();
+}
+
+// Canvas Confetti Animation Particle Engine
+function triggerConfetti() {
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const colors = ["#ff4757", "#2ed573", "#1e90ff", "#ffa502", "#e056fd", "#70a1ff"];
+
+    for (let i = 0; i < 80; i++) {
+        particles.push({
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2,
+            vx: (Math.random() - 0.5) * 12,
+            vy: (Math.random() - 0.5) * 12 - 4,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            life: 100
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = false;
+
+        particles.forEach(p => {
+            if (p.life > 0) {
+                active = true;
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.2; // Gravity
+                p.life -= 2;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        });
+
+        if (active) requestAnimationFrame(animate);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    animate();
+}
+
+// Calculators & Notes
 function calculateOLGrade() {
     const mark = parseInt(document.getElementById("olMark").value);
     const res = document.getElementById("olResult");
@@ -168,7 +321,6 @@ function calculateZScore() {
     res.innerText = `අනුමාන Z-Score අගය: ${z.toFixed(4)}`;
 }
 
-// WhatsApp Contact
 function sendToWhatsApp(e) {
     e.preventDefault();
     const name = document.getElementById("contactName").value.trim();
@@ -179,7 +331,6 @@ function sendToWhatsApp(e) {
     document.getElementById("feedbackForm").reset();
 }
 
-// Theme Persistence
 function applySavedTheme() {
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add("dark-mode");
@@ -195,7 +346,6 @@ function toggleTheme() {
         '<i class="fa-solid fa-sun"></i> Light Mode' : '<i class="fa-solid fa-moon"></i> Dark Mode';
 }
 
-// Notes Logic
 function renderNotes() {
     const list = document.getElementById("notesList");
     list.innerHTML = "";
@@ -203,19 +353,15 @@ function renderNotes() {
         list.innerHTML += `<li><span>📌 ${n}</span><button onclick="deleteNote(${i})"><i class="fa-solid fa-trash"></i></button></li>`;
     });
 }
+
 function addNote() {
     const val = document.getElementById("noteInput").value.trim();
     if (val) { userNotes.push(val); localStorage.setItem('userStudyNotes', JSON.stringify(userNotes)); document.getElementById("noteInput").value = ""; renderNotes(); }
 }
+
 function deleteNote(i) { userNotes.splice(i, 1); localStorage.setItem('userStudyNotes', JSON.stringify(userNotes)); renderNotes(); }
 
-// Music & Timer
-function toggleMusic() {
-    const music = document.getElementById("bgMusic");
-    if (music.paused) { music.play(); document.getElementById("musicToggleBtn").innerHTML = 'Music: On 🎵'; }
-    else { music.pause(); document.getElementById("musicToggleBtn").innerHTML = 'Music: Off 🔇'; }
-}
-
+// Pomodoro Timer
 let timerInterval, timeLeft = 25 * 60;
 function toggleTimerModal() {
     const m = document.getElementById("timerModal");
@@ -238,9 +384,9 @@ window.onscroll = () => {
 };
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-// Init
+// Initializing
 applySavedTheme();
 displayBooks(books);
 renderNotes();
 startExamCountdowns();
-loadQuiz();
+loadQuizQuestion();
