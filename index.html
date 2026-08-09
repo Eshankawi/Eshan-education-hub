@@ -31,7 +31,12 @@
     <header class="rgb-border">
         <h1>✨ අධ්‍යාපනික සම්පත් පියස ✨</h1>
         <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
-        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, YouTube සහ News එකම තැනකින්!</p>
+        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, A/L Streams සහ Educational Tools එකම තැනකින්!</p>
+
+        <div class="user-level-container">
+            <span>🏆 Level: <strong id="userLevel">1</strong> (XP: <span id="userXP">0</span>/100)</span>
+            <div class="xp-bar-bg"><div id="xpBarFill" class="xp-bar-fill"></div></div>
+        </div>
 
         <div class="quote-box" id="quoteBox">
             <i class="fa-solid fa-quote-left"></i> <span id="quoteText">දිනපතා කුඩා ජයග්‍රහණයක් කරා පියනගන්න!</span> <i class="fa-solid fa-quote-right"></i>
@@ -54,16 +59,19 @@
 
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, වීඩියෝ හෝ පුවත් සේවය සොයන්න...">
+            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, A/L විෂය හෝ පුවත් සේවය සොයන්න...">
         </div>
     </header>
 
     <section class="ambient-section">
-        <h3><i class="fa-solid fa-headphones"></i> Focus Music & Breathing Exercise (සන්සුන් වන්න)</h3>
-        <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">පාඩම් කිරීමට පෙර හෝ අතරමැද මනස නිරවුල් කරගැනීමට සන්සුන් තේමාවන් භාවිත කරන්න.</p>
+        <h3><i class="fa-solid fa-headphones"></i> Focus Music & Nature Sounds (ස්වාභාවික සන්සුන් නාද)</h3>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">පාඩම් කිරීමට පෙර හෝ අතරමැද මනස නිරවුල් කරගැනීමට සන්සුන් ස්වාභාවික තේමාවන් භාවිත කරන්න.</p>
         <div class="ambient-controls">
             <button id="rainBtn" onclick="toggleAmbient('rain')"><i class="fa-solid fa-cloud-rain"></i> Rain Sound 🌧️</button>
             <button id="lofiBtn" onclick="toggleAmbient('lofi')"><i class="fa-solid fa-compact-disc"></i> Lo-Fi Study Beats 🎧</button>
+            <button id="birdsBtn" onclick="toggleAmbient('birds')"><i class="fa-solid fa-dove"></i> Forest Birds 🐦</button>
+            <button id="wavesBtn" onclick="toggleAmbient('waves')"><i class="fa-solid fa-water"></i> Ocean Waves 🌊</button>
+            <button id="riverBtn" onclick="toggleAmbient('river')"><i class="fa-solid fa-droplet"></i> River Stream 💧</button>
             <button onclick="toggleBreatheModal()"><i class="fa-solid fa-spa"></i> 1-Min Mind Relaxing 🧘</button>
         </div>
     </section>
@@ -141,13 +149,17 @@
             </ul>
 
             <div class="grade-filter-container">
-                <h3><i class="fa-solid fa-layer-group"></i> ශ්‍රේණිය තෝරන්න</h3>
+                <h3><i class="fa-solid fa-layer-group"></i> A/L Streams & Grades</h3>
                 <select id="gradeSelect" onchange="filterGrade(this.value)">
                     <option value="all">සියලුම ශ්‍රේණි (All Grades)</option>
                     <option value="1-5">1 - 5 ශ්‍රේණි</option>
                     <option value="6-9">6 - 9 ශ්‍රේණි</option>
                     <option value="ol">10 - 11 ශ්‍රේණි (O/L)</option>
-                    <option value="al">12 - 13 ශ්‍රේණි (A/L)</option>
+                    <option value="al-maths">A/L Combined Maths</option>
+                    <option value="al-bio">A/L Biology</option>
+                    <option value="al-commerce">A/L Commerce</option>
+                    <option value="al-arts">A/L Arts</option>
+                    <option value="al-tech">A/L Technology</option>
                 </select>
             </div>
         </aside>
@@ -156,6 +168,25 @@
             <div id="bookGrid" class="grid"></div>
         </main>
     </div>
+
+    <section class="dictionary-section">
+        <h3><i class="fa-solid fa-spell-check"></i> Educational Dictionary (තාක්ෂණික ශබ්දකෝෂය)</h3>
+        <div class="dict-search">
+            <input type="text" id="dictInput" placeholder="English term එකක් Type කරන්න (e.g., Photosynthesis, Velocity)...">
+            <button onclick="searchDictionary()"><i class="fa-solid fa-search"></i> සොයන්න</button>
+        </div>
+        <div id="dictResult" class="dict-result-box"></div>
+    </section>
+
+    <section class="timetable-section">
+        <h3><i class="fa-solid fa-calendar-days"></i> Study Timetable Planner (පාඩම් කාලසටහන)</h3>
+        <div class="timetable-form">
+            <input type="text" id="ttSubject" placeholder="විෂය (Subject)">
+            <input type="time" id="ttTime">
+            <button onclick="addTimetableItem()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
+        </div>
+        <ul id="timetableList" class="timetable-list"></ul>
+    </section>
 
     <section class="calculator-section">
         <h3><i class="fa-solid fa-calculator"></i> Exam Marks & Z-Score Calculator</h3>
@@ -185,6 +216,14 @@
         </div>
         <ul id="notesList" class="notes-list"></ul>
     </section>
+
+    <div id="pdfModal" class="modal">
+        <div class="modal-content pdf-modal-content">
+            <span class="close-btn" onclick="closePdfModal()">&times;</span>
+            <h3 id="pdfTitle">📄 Document Preview</h3>
+            <iframe id="pdfFrame" src="" style="width: 100%; height: 420px; border: none; margin-top: 10px;"></iframe>
+        </div>
+    </div>
 
     <div id="timerModal" class="modal">
         <div class="modal-content">
