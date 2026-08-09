@@ -10,6 +10,8 @@
 </head>
 <body class="light-mode">
 
+    <canvas id="confettiCanvas"></canvas>
+
     <nav class="top-nav">
         <div class="logo">
             <i class="fa-solid fa-graduation-cap animated-icon"></i> Eshan Education
@@ -25,16 +27,6 @@
             </button>
         </div>
     </nav>
-
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="rainSound" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2021/09/06/audio_34d1e2e92c.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="lofiSound" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73223.mp3" type="audio/mpeg">
-    </audio>
 
     <header class="rgb-border">
         <h1>✨ අධ්‍යාපනික සම්පත් පියස ✨</h1>
@@ -64,9 +56,42 @@
 
     <section class="ambient-section">
         <h3><i class="fa-solid fa-headphones"></i> Focus Ambient Sounds (පාඩම් කරන විට අසන්න)</h3>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Sound Play නොවන්නේ නම් පිටුවේ කොතැනකට හෝ ක්ලික් කර නැවත බටන් එක ඔබන්න.</p>
         <div class="ambient-controls">
             <button id="rainBtn" onclick="toggleAmbient('rain')"><i class="fa-solid fa-cloud-rain"></i> Rain Sound 🌧️</button>
             <button id="lofiBtn" onclick="toggleAmbient('lofi')"><i class="fa-solid fa-compact-disc"></i> Lo-Fi Study Beats 🎧</button>
+        </div>
+    </section>
+
+    <section class="quiz-section">
+        <div class="quiz-header">
+            <h3><i class="fa-solid fa-gamepad"></i> Mega Knowledge Arena (ප්‍රශ්න විචාරාත්මක අංගය)</h3>
+            <div class="quiz-stats">
+                <span class="stat-badge"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> Score: <strong id="scoreDisplay">0</strong></span>
+                <span class="stat-badge"><i class="fa-solid fa-fire" style="color: #ff4757;"></i> Streak: <strong id="streakDisplay">0</strong> 🔥</span>
+            </div>
+        </div>
+
+        <div class="quiz-category-select">
+            <label for="quizCategory"><i class="fa-solid fa-filter"></i> විෂය තෝරන්න: </label>
+            <select id="quizCategory" onchange="changeQuizCategory(this.value)">
+                <option value="gk">🌐 සාමාන්‍ය දැනීම (General Knowledge)</option>
+                <option value="science">🔬 විද්‍යාව (Science)</option>
+                <option value="history">🏛️ ඉතිහාසය (History)</option>
+                <option value="grade5">🌟 ශිෂ්‍යත්වය (Grade 5)</option>
+            </select>
+        </div>
+
+        <div id="quizContainer" class="quiz-box">
+            <p id="quizQuestion" class="quiz-q-text">ප්‍රශ්නය ලබා ගනිමින් පවතී...</p>
+            <div id="quizOptions" class="quiz-options"></div>
+            
+            <div id="quizFeedback" class="quiz-feedback-card hidden">
+                <div id="feedbackIcon" class="feedback-icon"></div>
+                <h4 id="feedbackTitle"></h4>
+                <p id="feedbackMsg"></p>
+                <button onclick="nextQuestion()" class="next-q-btn">ඊළඟ ප්‍රශ්නය <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
         </div>
     </section>
 
@@ -84,15 +109,6 @@
                 <h3>දිනපතා උත්සාහ කරන්න! 🚀</h3>
                 <p>කුඩා පියවරක් වුවද සෑම දිනකම ඉදිරියට තබන්න. ඔබේ අනාගතය අද ඔබ කරන කැපවීම මත තීරණය වේ!</p>
             </div>
-        </div>
-    </section>
-
-    <section class="quiz-section">
-        <h3><i class="fa-solid fa-circle-question"></i> දෛනික ප්‍රශ්න විචාරාත්මක අංගය (Daily Quiz)</h3>
-        <div id="quizContainer" class="quiz-box">
-            <p id="quizQuestion">ප්‍රශ්නය ලබා ගනිමින් පවතී...</p>
-            <div id="quizOptions" class="quiz-options"></div>
-            <p id="quizResult" class="quiz-result"></p>
         </div>
     </section>
 
