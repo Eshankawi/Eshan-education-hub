@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eshan Kavishka - Educational Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="light-mode">
+
+    <nav class="top-nav">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap animated-icon"></i> Eshan Education
+        </div>
+        <button id="themeToggleBtn" onclick="toggleTheme()">
+            <i class="fa-solid fa-moon"></i> Dark Mode
+        </button>
+    </nav>
+
+    <header class="rgb-border">
+        <h1>✨ අධ්‍යාපනික සම්පත් පියස ✨</h1>
+        <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
+        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes සහ News එකම තැනකින්!</p>
+        
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන හෝ පුවත් සේවය සොයන්න...">
+        </div>
+    </header>
+
+    <section class="motivation-banner">
+        <div class="banner-card">
+            <i class="fa-solid fa-brain banner-icon"></i>
+            <div>
+                <h3>අධ්‍යාපනයේ වැදගත්කම 🌟</h3>
+                <p>"අධ්‍යාපනය යනු ලෝකය වෙනස් කිරීමට ඔබට භාවිත කළ හැකි බලවත්ම ආයුධයයි." - නෙල්සන් මැන්ඩෙලා</p>
+            </div>
+        </div>
+        <div class="banner-card">
+            <i class="fa-solid fa-rocket banner-icon"></i>
+            <div>
+                <h3>දිනපතා උත්සාහ කරන්න! 🚀</h3>
+                <p>කුඩා පියවරක් වුවද සෑම දිනකම ඉදිරියට තබන්න. ඔබේ අනාගතය අද ඔබ කරන කැපවීම මත තීරණය වේ!</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="kids-corner">
+        <div class="animal-tag">🐱 <span>ඉගෙනුම විනෝදයක් කරගනිමු!</span> 🦊</div>
+    </div>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <h3><i class="fa-solid fa-list-check"></i> ප්‍රවර්ග (Categories)</h3>
+            <ul>
+                <li onclick="filterCategory('all')"><i class="fa-solid fa-border-all"></i> 📚 සියල්ල (All)</li>
+                <li onclick="filterCategory('textbook')"><i class="fa-solid fa-book-open"></i> 📖 අච්චු පොත් & පාඩම්</li>
+                <li onclick="filterCategory('paper')"><i class="fa-solid fa-file-pen"></i> 📝 Past Papers & Notes</li>
+                <li onclick="filterCategory('news')"><i class="fa-solid fa-newspaper"></i> 📰 අධ්‍යාපනික පුවත්</li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div id="bookGrid" class="grid">
+                </div>
+        </main>
+    </div>
+
+    <section class="disclaimer-box">
+        <h3><i class="fa-solid fa-shield-halved"></i> ප්‍රකාශන හිමිකම් සහ වගකීම් නිමේෂය (Disclaimer)</h3>
+        <p>
+            මෙම වෙබ් අඩවියෙහි ඇතුළත් සියලුම පෙළපොත්, පසුගිය විභාග ප්‍රශ්න පත්‍ර, පුවත් සහ අධ්‍යාපනික සටහන්වල <strong>මූලික ප්‍රකාශන හිමිකම් (Copyrights)</strong> සහ අයිතිය ඒවා හිමි නිල ආයතන, දෙපාර්තමේන්තු සහ අදාළ වෙබ් අඩවි සතුවේ.
+        </p>
+        <p>
+            මෙම වෙබ් අඩවිය නිර්මාණය කර ඇත්තේ කිසිදු වාණිජමය හෝ අයහපත් අරමුණකින් තොරව, <strong>ශ්‍රී ලාංකේය සිසුන්ට සහ පරිශීලකයින්ට එම අධ්‍යාපනික සම්පත් එකම තැනකින් පහසුවෙන් සොයාගැනීමට (Easy Navigation)</strong> උපකාර කිරීමේ පරමාර්ථයෙන් පමණි. සියලුම Links මගින් පරිශීලකයා සෘජුවම අදාළ නිල වෙබ් අඩවි වෙත යොමු කරනු ලැබේ.
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 <strong>Eshan Kavishka</strong>. All Rights Reserved. | Designed for Joyful Learning 🎓</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
