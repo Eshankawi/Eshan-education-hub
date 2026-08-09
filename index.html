@@ -32,6 +32,10 @@
         <h1>✨ අධ්‍යාපනික සම්පත් පියස ✨</h1>
         <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
         <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, YouTube සහ News එකම තැනකින්!</p>
+
+        <div class="quote-box" id="quoteBox">
+            <i class="fa-solid fa-quote-left"></i> <span id="quoteText">දිනපතා කුඩා ජයග්‍රහණයක් කරා පියනගන්න!</span> <i class="fa-solid fa-quote-right"></i>
+        </div>
         
         <div class="countdowns-container">
             <div class="countdown-card">
@@ -55,11 +59,12 @@
     </header>
 
     <section class="ambient-section">
-        <h3><i class="fa-solid fa-headphones"></i> Focus Ambient Sounds (පාඩම් කරන විට අසන්න)</h3>
-        <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Sound Play නොවන්නේ නම් පිටුවේ කොතැනකට හෝ ක්ලික් කර නැවත බටන් එක ඔබන්න.</p>
+        <h3><i class="fa-solid fa-headphones"></i> Focus Music & Breathing Exercise (සන්සුන් වන්න)</h3>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">පාඩම් කිරීමට පෙර හෝ අතරමැද මනස නිරවුල් කරගැනීමට සන්සුන් තේමාවන් භාවිත කරන්න.</p>
         <div class="ambient-controls">
             <button id="rainBtn" onclick="toggleAmbient('rain')"><i class="fa-solid fa-cloud-rain"></i> Rain Sound 🌧️</button>
             <button id="lofiBtn" onclick="toggleAmbient('lofi')"><i class="fa-solid fa-compact-disc"></i> Lo-Fi Study Beats 🎧</button>
+            <button onclick="toggleBreatheModal()"><i class="fa-solid fa-spa"></i> 1-Min Mind Relaxing 🧘</button>
         </div>
     </section>
 
@@ -69,6 +74,7 @@
             <div class="quiz-stats">
                 <span class="stat-badge"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> Score: <strong id="scoreDisplay">0</strong></span>
                 <span class="stat-badge"><i class="fa-solid fa-fire" style="color: #ff4757;"></i> Streak: <strong id="streakDisplay">0</strong> 🔥</span>
+                <span class="stat-badge" id="badgeDisplay">🥉 Beginner</span>
             </div>
         </div>
 
@@ -95,26 +101,30 @@
         </div>
     </section>
 
-    <section class="motivation-banner">
-        <div class="banner-card">
-            <i class="fa-solid fa-brain banner-icon"></i>
-            <div>
-                <h3>අධ්‍යාපනයේ වැදගත්කම 🌟</h3>
-                <p>"අධ්‍යාපනය යනු ලෝකය වෙනස් කිරීමට ඔබට භාවිත කළ හැකි බලවත්ම ආයුධයයි." - නෙල්සන් මැන්ඩෙලා</p>
+    <section class="flashcard-section">
+        <h3><i class="fa-solid fa-clone"></i> Quick Study Flashcards (මතක තබා ගැනීමේ කාඩ්පත්)</h3>
+        <p>කාඩ්පත උඩ Click කර එහි පිළිතුර/තේරුම නරඹන්න!</p>
+        <div class="flashcard-grid">
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">💡 Photosynthesis (ප්‍රභාසංශ්ලේෂණය)</div>
+                    <div class="flashcard-back">ශාක හිරු එළිය, ජලය සහ CO2 භාවිතයෙන් ආහාර (ග්ලූකෝස්) නිපදවීමේ ක්‍රියාවලියයි.</div>
+                </div>
             </div>
-        </div>
-        <div class="banner-card">
-            <i class="fa-solid fa-rocket banner-icon"></i>
-            <div>
-                <h3>දිනපතා උත්සාහ කරන්න! 🚀</h3>
-                <p>කුඩා පියවරක් වුවද සෑම දිනකම ඉදිරියට තබන්න. ඔබේ අනාගතය අද ඔබ කරන කැපවීම මත තීරණය වේ!</p>
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">📐 Pythagoras Theorem</div>
+                    <div class="flashcard-back">a² + b² = c² (ඍජුකෝණී ත්‍රිකෝණයක කර්ණයේ වර්ගය අනෙක් පාදවල වර්ගවල එකතුවට සමාන වේ).</div>
+                </div>
+            </div>
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">🔤 English Word: "Perseverance"</div>
+                    <div class="flashcard-back">අධිෂ්ඨානය / නොපසුබට උත්සාහය (Keep trying despite difficulties).</div>
+                </div>
             </div>
         </div>
     </section>
-
-    <div class="kids-corner">
-        <div class="animal-tag">🐱 <span>ඉගෙනුම විනෝදයක් කරගනිමු!</span> 🦊</div>
-    </div>
 
     <div class="main-container">
         <aside class="sidebar">
@@ -157,11 +167,11 @@
                 <div id="olResult" class="calc-result"></div>
             </div>
             <div class="calc-card">
-                <h4>A/L Simple Z-Score Calculator</h4>
-                <input type="number" id="userMarks" placeholder="ඔබේ සාමාන්‍ය ලකුණු">
-                <input type="number" id="meanMarks" placeholder="කාණ්ඩයේ මධ්‍යනය (Mean)">
+                <h4>A/L Z-Score Calculator</h4>
+                <input type="number" id="userMarks" placeholder="ඔබේ ලකුණු">
+                <input type="number" id="meanMarks" placeholder="මධ්‍යනය (Mean)">
                 <input type="number" id="sdMarks" placeholder="සම්මත අපගමනය (SD)">
-                <button onclick="calculateZScore()">Z-Score ගණනය කරන්න</button>
+                <button onclick="calculateZScore()">Z-Score බලන්න</button>
                 <div id="zResult" class="calc-result"></div>
             </div>
         </div>
@@ -169,7 +179,6 @@
 
     <section class="notes-section">
         <h3><i class="fa-solid fa-note-sticky"></i> මාගේ කෙටි සටහන් (Quick Study Notes)</h3>
-        <p>පාඩම් කරන අතරතුර වැදගත් කරුණු මෙතැන සටහන් කර Save කර තබාගන්න.</p>
         <div class="note-input-group">
             <input type="text" id="noteInput" placeholder="සටහන ඇතුළත් කරන්න...">
             <button onclick="addNote()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
@@ -191,6 +200,17 @@
         </div>
     </div>
 
+    <div id="breatheModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="toggleBreatheModal()">&times;</span>
+            <h3>🧘 Mind Relaxation Breathing</h3>
+            <p>තත්පර 4ක් හුස්ම ගන්න, තත්පර 4ක් තබා ගන්න, තත්පර 4ක් හෙමින් පිටකරන්න.</p>
+            <div class="breathe-circle" id="breatheCircle">
+                <span id="breatheText">Breathe In...</span>
+            </div>
+        </div>
+    </div>
+
     <section class="contact-section">
         <h3><i class="fa-solid fa-paper-plane"></i> අදහස් යොමු කරන්න / ගැටළු යොමු කරන්න</h3>
         <p>ඔබගේ ගැටළුව හෝ අදහස පහතින් ඇතුළත් කර WhatsApp හරහා සෘජුවම Eshan වෙත යොමු කරන්න.</p>
@@ -200,25 +220,10 @@
             <input type="email" id="contactEmail" placeholder="ඔබේ Email ලිපිනය (අවශ්‍ය නම් පමණි)">
             <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ ගැටළුව මෙතැන Type කරන්න..." required></textarea>
             
-            <div class="ss-notice">
-                <p><i class="fa-solid fa-image"></i> <strong>Screenshot එකක් ඇතුළත් කිරීමට අවශ්‍යද?</strong></p>
-                <small>පහත Send Button එක එබූ පසු WhatsApp ඇප් එක Open වන අතර, එහිදී ඔයාගේ Screenshot එක Attach කර යවන්න.</small>
-            </div>
-
             <button type="submit" style="background: #25D366;">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp හරහා යවන්න (Send via WhatsApp)
             </button>
         </form>
-    </section>
-
-    <section class="disclaimer-box">
-        <h3><i class="fa-solid fa-shield-halved"></i> ප්‍රකාශන හිමිකම් සහ වගකීම් නිමේෂය (Disclaimer)</h3>
-        <p>
-            මෙම වෙබ් අඩවියෙහි ඇතුළත් සියලුම පෙළපොත්, පසුගිය විභාග ප්‍රශ්න පත්‍ර, පුවත් සහ අධ්‍යාපනික සටහන්වල <strong>මූලික ප්‍රකාශන හිමිකම් (Copyrights)</strong> සහ අයිතිය ඒවා හිමි නිල ආයතන, දෙපාර්තමේන්තු සහ අදාළ වෙබ් අඩවි සතුවේ.
-        </p>
-        <p>
-            මෙම වෙබ් අඩවිය නිර්මාණය කර ඇත්තේ කිසිදු වාණිජමය හෝ අයහපත් අරමුණකින් තොරව, <strong>ශ්‍රී ලාංකේය සිසුන්ට සහ පරිශීලකයින්ට එම අධ්‍යාපනික සම්පත් එකම තැනකින් පහසුවෙන් සොයාගැනීමට (Easy Navigation)</strong> උපකාර කිරීමේ පරමාර්ථයෙන් පමණි.
-        </p>
     </section>
 
     <button id="backToTopBtn" onclick="scrollToTop()">
