@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eshan Kavishka - Educational Hub Ultimate</title>
+    <title>Eshan Kavishka - Educational Hub</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="light-mode" data-theme="default">
+<body class="light-mode">
 
     <canvas id="confettiCanvas"></canvas>
 
@@ -18,117 +18,59 @@
         </div>
         
         <div class="controls">
-            <select id="themeColorSelect" onchange="changeThemeColor(this.value)">
-                <option value="default">🎨 Theme: Classic</option>
-                <option value="ocean">🌊 Theme: Ocean Blue</option>
-                <option value="sunset">🌅 Theme: Sunset Warm</option>
-                <option value="cyber">⚡ Theme: Cyberpunk</option>
-            </select>
             <button id="timerBtn" onclick="toggleTimerModal()"><i class="fa-solid fa-stopwatch"></i> Study Timer</button>
-            <button id="musicToggleBtn" onclick="toggleMusic()"><i class="fa-solid fa-music"></i> Music: Off 🔇</button>
-            <button id="themeToggleBtn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> Dark Mode</button>
+            <button id="musicToggleBtn" onclick="toggleMusic()">
+                <i class="fa-solid fa-music"></i> Music: Off 🔇
+            </button>
+            <button id="themeToggleBtn" onclick="toggleTheme()">
+                <i class="fa-solid fa-moon"></i> Dark Mode
+            </button>
         </div>
     </nav>
 
     <header class="rgb-border">
         <h1>✨ අධ්‍යාපනික සම්පත් පියස ✨</h1>
         <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
-        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, A/L Streams සහ Audio Notes එකම තැනකින්!</p>
-
-        <div class="user-level-container">
-            <span><i class="fa-solid fa-trophy"></i> Level: <strong id="userLevel">1</strong> (XP: <span id="userXP">0</span>/100)</span>
-            <div class="xp-bar-bg"><div id="xpBarFill" class="xp-bar-fill"></div></div>
-        </div>
+        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, YouTube සහ News එකම තැනකින්!</p>
 
         <div class="quote-box" id="quoteBox">
             <i class="fa-solid fa-quote-left"></i> <span id="quoteText">දිනපතා කුඩා ජයග්‍රහණයක් කරා පියනගන්න!</span> <i class="fa-solid fa-quote-right"></i>
         </div>
         
         <div class="countdowns-container">
-            <div class="countdown-card"><span>🎓 5 ශිෂ්‍යත්වය: </span><strong id="grade5Countdown">ගණනය වේ...</strong></div>
-            <div class="countdown-card"><span>📘 O/L විභාගය: </span><strong id="olCountdown">ගණනය වේ...</strong></div>
-            <div class="countdown-card"><span>📕 A/L විභාගය: </span><strong id="alCountdown">ගණනය වේ...</strong></div>
+            <div class="countdown-card">
+                <span>🎓 5 ශිෂ්‍යත්වය: </span>
+                <strong id="grade5Countdown">ගණනය වේ...</strong>
+            </div>
+            <div class="countdown-card">
+                <span>📘 O/L විභාගය: </span>
+                <strong id="olCountdown">ගණනය වේ...</strong>
+            </div>
+            <div class="countdown-card">
+                <span>📕 A/L විභාගය: </span>
+                <strong id="alCountdown">ගණනය වේ...</strong>
+            </div>
         </div>
 
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, A/L විෂය හෝ පුවත් සේවය සොයන්න...">
+            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, වීඩියෝ හෝ පුවත් සේවය සොයන්න...">
         </div>
     </header>
 
-    <section class="daily-q-section">
-        <h3><i class="fa-solid fa-calendar-check"></i> Question of the Day (දවසේ ප්‍රශ්නය)</h3>
-        <p id="dailyQuestionText">ප්‍රශ්නය පූරණය වේ...</p>
-        <div id="dailyQOptions" class="daily-q-options"></div>
-        <p id="dailyQFeedback" class="daily-q-feedback"></p>
-    </section>
-
     <section class="ambient-section">
-        <h3><i class="fa-solid fa-headphones"></i> Focus Music & Relaxation</h3>
+        <h3><i class="fa-solid fa-headphones"></i> Focus Music & Breathing Exercise (සන්සුන් වන්න)</h3>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">පාඩම් කිරීමට පෙර හෝ අතරමැද මනස නිරවුල් කරගැනීමට සන්සුන් තේමාවන් භාවිත කරන්න.</p>
         <div class="ambient-controls">
             <button id="rainBtn" onclick="toggleAmbient('rain')"><i class="fa-solid fa-cloud-rain"></i> Rain Sound 🌧️</button>
             <button id="lofiBtn" onclick="toggleAmbient('lofi')"><i class="fa-solid fa-compact-disc"></i> Lo-Fi Study Beats 🎧</button>
-            <button onclick="toggleBreatheModal()"><i class="fa-solid fa-spa"></i> 1-Min Relaxation 🧘</button>
-        </div>
-    </section>
-
-    <div class="main-container">
-        <aside class="sidebar">
-            <h3><i class="fa-solid fa-list-check"></i> ප්‍රවර්ග (Categories)</h3>
-            <ul>
-                <li onclick="filterCategory('all')"><i class="fa-solid fa-border-all"></i> 📚 සියල්ල (All)</li>
-                <li onclick="filterCategory('favorites')"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> ⭐ මාගේ Favorites</li>
-                <li onclick="filterCategory('textbook')"><i class="fa-solid fa-book-open"></i> 📖 අච්චු පොත් & පාඩම්</li>
-                <li onclick="filterCategory('paper')"><i class="fa-solid fa-file-pen"></i> 📝 Past Papers & Notes</li>
-                <li onclick="filterCategory('youtube')"><i class="fa-brands fa-youtube"></i> 🎥 YouTube Lessons</li>
-                <li onclick="filterCategory('story')"><i class="fa-solid fa-book-bookmark"></i> 📕 ළමා & කතා පොත්</li>
-                <li onclick="filterCategory('grade5')"><i class="fa-solid fa-award"></i> 🌟 ශිෂ්‍යත්වය (Grade 5)</li>
-            </ul>
-
-            <div class="grade-filter-container">
-                <h3><i class="fa-solid fa-layer-group"></i> A/L Stream & Grades</h3>
-                <select id="gradeSelect" onchange="filterGrade(this.value)">
-                    <option value="all">සියලුම ශ්‍රේණි (All Grades)</option>
-                    <option value="1-5">1 - 5 ශ්‍රේණි</option>
-                    <option value="6-9">6 - 9 ශ්‍රේණි</option>
-                    <option value="ol">10 - 11 ශ්‍රේණි (O/L)</option>
-                    <option value="al-maths">A/L Physical Science (Combined Maths)</option>
-                    <option value="al-bio">A/L Biological Science</option>
-                    <option value="al-commerce">A/L Commerce</option>
-                    <option value="al-arts">A/L Arts</option>
-                    <option value="al-tech">A/L Technology</option>
-                </select>
-            </div>
-
-            <div class="community-box">
-                <h3><i class="fa-solid fa-users"></i> Study Groups</h3>
-                <a href="https://t.me/" target="_blank" class="group-btn telegram"><i class="fa-brands fa-telegram"></i> Telegram Group</a>
-                <a href="https://whatsapp.com/" target="_blank" class="group-btn whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp Community</a>
-            </div>
-        </aside>
-
-        <main class="content">
-            <div id="bookGrid" class="grid"></div>
-        </main>
-    </div>
-
-    <section class="audio-section">
-        <h3><i class="fa-solid fa-podcast"></i> Educational Audio Notes (අහලා ඉගෙනගන්න)</h3>
-        <div class="audio-grid">
-            <div class="audio-card">
-                <h4>🎙️ O/L Science Quick Revision</h4>
-                <audio controls src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"></audio>
-            </div>
-            <div class="audio-card">
-                <h4>🎙️ History Short Summary</h4>
-                <audio controls src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73223.mp3"></audio>
-            </div>
+            <button onclick="toggleBreatheModal()"><i class="fa-solid fa-spa"></i> 1-Min Mind Relaxing 🧘</button>
         </div>
     </section>
 
     <section class="quiz-section">
         <div class="quiz-header">
-            <h3><i class="fa-solid fa-gamepad"></i> Mega Knowledge Arena</h3>
+            <h3><i class="fa-solid fa-gamepad"></i> Mega Knowledge Arena (ප්‍රශ්න විචාරාත්මක අංගය)</h3>
             <div class="quiz-stats">
                 <span class="stat-badge"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> Score: <strong id="scoreDisplay">0</strong></span>
                 <span class="stat-badge"><i class="fa-solid fa-fire" style="color: #ff4757;"></i> Streak: <strong id="streakDisplay">0</strong> 🔥</span>
@@ -159,24 +101,61 @@
         </div>
     </section>
 
-    <section class="dictionary-section">
-        <h3><i class="fa-solid fa-spell-check"></i> Educational Dictionary & Terms (පාරිභාෂික ශබ්දකෝෂය)</h3>
-        <div class="dict-search">
-            <input type="text" id="dictInput" placeholder="English term එකක් Type කරන්න (e.g., Photosynthesis, Velocity)...">
-            <button onclick="searchDictionary()"><i class="fa-solid fa-search"></i> සොයන්න</button>
+    <section class="flashcard-section">
+        <h3><i class="fa-solid fa-clone"></i> Quick Study Flashcards (මතක තබා ගැනීමේ කාඩ්පත්)</h3>
+        <p>කාඩ්පත උඩ Click කර එහි පිළිතුර/තේරුම නරඹන්න!</p>
+        <div class="flashcard-grid">
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">💡 Photosynthesis (ප්‍රභාසංශ්ලේෂණය)</div>
+                    <div class="flashcard-back">ශාක හිරු එළිය, ජලය සහ CO2 භාවිතයෙන් ආහාර (ග්ලූකෝස්) නිපදවීමේ ක්‍රියාවලියයි.</div>
+                </div>
+            </div>
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">📐 Pythagoras Theorem</div>
+                    <div class="flashcard-back">a² + b² = c² (ඍජුකෝණී ත්‍රිකෝණයක කර්ණයේ වර්ගය අනෙක් පාදවල වර්ගවල එකතුවට සමාන වේ).</div>
+                </div>
+            </div>
+            <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">🔤 English Word: "Perseverance"</div>
+                    <div class="flashcard-back">අධිෂ්ඨානය / නොපසුබට උත්සාහය (Keep trying despite difficulties).</div>
+                </div>
+            </div>
         </div>
-        <div id="dictResult" class="dict-result-box"></div>
     </section>
 
-    <section class="timetable-section">
-        <h3><i class="fa-solid fa-calendar-days"></i> Study Timetable Planner (පාඩම් කාලසටහන)</h3>
-        <div class="timetable-form">
-            <input type="text" id="ttSubject" placeholder="විෂය (Subject)">
-            <input type="time" id="ttTime">
-            <button onclick="addTimetableItem()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
-        </div>
-        <ul id="timetableList" class="timetable-list"></ul>
-    </section>
+    <div class="main-container">
+        <aside class="sidebar">
+            <h3><i class="fa-solid fa-list-check"></i> ප්‍රවර්ග (Categories)</h3>
+            <ul>
+                <li onclick="filterCategory('all')"><i class="fa-solid fa-border-all"></i> 📚 සියල්ල (All)</li>
+                <li onclick="filterCategory('favorites')"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> ⭐ මාගේ Favorites</li>
+                <li onclick="filterCategory('textbook')"><i class="fa-solid fa-book-open"></i> 📖 අච්චු පොත් & පාඩම්</li>
+                <li onclick="filterCategory('paper')"><i class="fa-solid fa-file-pen"></i> 📝 Past Papers & Notes</li>
+                <li onclick="filterCategory('youtube')"><i class="fa-brands fa-youtube"></i> 🎥 YouTube Lessons</li>
+                <li onclick="filterCategory('story')"><i class="fa-solid fa-book-bookmark"></i> 📕 ළමා & කතා පොත්</li>
+                <li onclick="filterCategory('grade5')"><i class="fa-solid fa-award"></i> 🌟 ශිෂ්‍යත්වය (Grade 5)</li>
+                <li onclick="filterCategory('news')"><i class="fa-solid fa-newspaper"></i> 📰 අධ්‍යාපනික පුවත්</li>
+            </ul>
+
+            <div class="grade-filter-container">
+                <h3><i class="fa-solid fa-layer-group"></i> ශ්‍රේණිය තෝරන්න</h3>
+                <select id="gradeSelect" onchange="filterGrade(this.value)">
+                    <option value="all">සියලුම ශ්‍රේණි (All Grades)</option>
+                    <option value="1-5">1 - 5 ශ්‍රේණි</option>
+                    <option value="6-9">6 - 9 ශ්‍රේණි</option>
+                    <option value="ol">10 - 11 ශ්‍රේණි (O/L)</option>
+                    <option value="al">12 - 13 ශ්‍රේණි (A/L)</option>
+                </select>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div id="bookGrid" class="grid"></div>
+        </main>
+    </div>
 
     <section class="calculator-section">
         <h3><i class="fa-solid fa-calculator"></i> Exam Marks & Z-Score Calculator</h3>
@@ -207,18 +186,11 @@
         <ul id="notesList" class="notes-list"></ul>
     </section>
 
-    <div id="pdfModal" class="modal">
-        <div class="modal-content pdf-modal-content">
-            <span class="close-btn" onclick="closePdfModal()">&times;</span>
-            <h3 id="pdfTitle">📄 Document Preview</h3>
-            <iframe id="pdfFrame" src="" style="width: 100%; height: 450px; border: none; margin-top: 10px;"></iframe>
-        </div>
-    </div>
-
     <div id="timerModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="toggleTimerModal()">&times;</span>
             <h3>⏱️ Pomodoro Study Timer</h3>
+            <p>විනාඩි 25ක් පාඩම් කර විනාඩි 5ක විවේකයක් ගන්න!</p>
             <div id="timerDisplay">25:00</div>
             <div class="timer-controls">
                 <button onclick="startTimer()">Start</button>
@@ -232,6 +204,7 @@
         <div class="modal-content">
             <span class="close-btn" onclick="toggleBreatheModal()">&times;</span>
             <h3>🧘 Mind Relaxation Breathing</h3>
+            <p>තත්පර 4ක් හුස්ම ගන්න, තත්පර 4ක් තබා ගන්න, තත්පර 4ක් හෙමින් පිටකරන්න.</p>
             <div class="breathe-circle" id="breatheCircle">
                 <span id="breatheText">Breathe In...</span>
             </div>
@@ -239,21 +212,23 @@
     </div>
 
     <section class="contact-section">
-        <h3><i class="fa-solid fa-paper-plane"></i> අදහස් / Request Note Form</h3>
-        <p>අවශ්‍ය Note එකක් ඉල්ලන්න හෝ ඔබේ අදහස් WhatsApp හරහා යොමු කරන්න.</p>
+        <h3><i class="fa-solid fa-paper-plane"></i> අදහස් යොමු කරන්න / ගැටළු යොමු කරන්න</h3>
+        <p>ඔබගේ ගැටළුව හෝ අදහස පහතින් ඇතුළත් කර WhatsApp හරහා සෘජුවම Eshan වෙත යොමු කරන්න.</p>
         
         <form id="feedbackForm" onsubmit="sendToWhatsApp(event)">
             <input type="text" id="contactName" placeholder="ඔබේ නම" required>
-            <input type="text" id="contactSubject" placeholder="අවශ්‍ය Past Paper/Note එකක් නම් මෙහි ලියන්න">
-            <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය Type කරන්න..." required></textarea>
+            <input type="email" id="contactEmail" placeholder="ඔබේ Email ලිපිනය (අවශ්‍ය නම් පමණි)">
+            <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ ගැටළුව මෙතැන Type කරන්න..." required></textarea>
             
             <button type="submit" style="background: #25D366;">
-                <i class="fa-brands fa-whatsapp"></i> WhatsApp හරහා යවන්න
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp හරහා යවන්න (Send via WhatsApp)
             </button>
         </form>
     </section>
 
-    <button id="backToTopBtn" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></button>
+    <button id="backToTopBtn" onclick="scrollToTop()">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <footer>
         <p>&copy; 2026 <strong>Eshan Kavishka</strong>. All Rights Reserved. | Designed for Joyful Learning 🎓</p>
