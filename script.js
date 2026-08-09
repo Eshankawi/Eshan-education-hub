@@ -35,7 +35,7 @@ function displayBooks(items) {
     grid.innerHTML = "";
 
     if (items.length === 0) {
-        grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #777;'>ඔබ සොයන තොරතුර හමු නොවීය. 🎈</p>";
+        grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #777;'>ඔබ සොයන තොරතුර හමු නොවීය. No results found. 🎈</p>";
         return;
     }
 
@@ -49,7 +49,7 @@ function displayBooks(items) {
             </div>
             <div class="card-actions">
                 <a href="${book.link}" target="_blank" rel="noopener noreferrer" class="download-btn">
-                    පිවිසෙන්න <i class="fa-solid fa-arrow-right"></i>
+                    පිවිසෙන්න / Visit <i class="fa-solid fa-arrow-right"></i>
                 </a>
                 <button class="share-btn" onclick="shareLink('${book.title}', '${book.link}')" title="Share">
                     <i class="fa-solid fa-share-nodes"></i>
@@ -90,7 +90,7 @@ function shareLink(title, url) {
         }).catch(() => {});
     } else {
         navigator.clipboard.writeText(url);
-        alert("Link එක Copy කරගන්නා ලදී!");
+        alert("Link එක Copy කරගන්න ලදී! Link copied!");
     }
 }
 
@@ -108,10 +108,28 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Handle Contact Feedback Form
+// Handle Contact Feedback Form via WhatsApp (+94789119916)
 function handleFeedback(e) {
     e.preventDefault();
-    alert("ඔබගේ අදහස ලබාදීමට ස්තූතියි, Eshan වෙත පණිවිඩය ලැබුණි! 🚀");
+    
+    // ඔබේ WhatsApp අංකය (රටේ කේතය සමඟ)
+    const whatsappNumber = "94789119916"; 
+
+    const name = document.getElementById("contactName").value;
+    const email = document.getElementById("contactEmail").value || "සඳහන් කර නැත (Not Provided)";
+    const message = document.getElementById("contactMessage").value;
+
+    // ඔබ ඉල්ලූ ආකෘතියට සමාන WhatsApp පණිවිඩයේ හැඩය
+    const whatsappMessage = `👋 *Eshan Education Hub - නව පණිවිඩයක්!*%0A%0A👤 *නම:* ${name}%0A📧 *Email:* ${email}%0A%0A📝 *ගැටළුව/පණිවිඩය:*%0A${message}%0A%0A📌 _(Screenshot එකක් ඇත්නම් කරුණාකර මෙතැනට Attach කරන්න)_`;
+
+    // WhatsApp URL එක සකස් කිරීම
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+    // පරිශීලකයාට දැනුම් දී WhatsApp වෙත යොමු කිරීම
+    alert("ස්තූතියි! දැන් ඔබේ WhatsApp හරහා මෙම පණිවිඩය අප වෙත එවන්න. (අවශ්‍ය නම් Screenshot එකක් ද Attach කර එවන්න!) 🚀");
+    
+    window.open(whatsappURL, '_blank');
+    
     document.getElementById("feedbackForm").reset();
 }
 
