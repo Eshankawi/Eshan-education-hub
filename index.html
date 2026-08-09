@@ -10,122 +10,63 @@
 </head>
 <body class="light-mode">
 
-    <canvas id="confettiCanvas"></canvas>
-
     <nav class="top-nav">
         <div class="logo">
             <i class="fa-solid fa-graduation-cap animated-icon"></i> Eshan Education
         </div>
         
         <div class="controls">
-            <button id="timerBtn" class="btn-3d btn-timer" onclick="toggleTimerModal()">
-                <i class="fa-solid fa-stopwatch"></i> Study Timer
+            <button id="musicToggleBtn" onclick="toggleMusic()">
+                <i class="fa-solid fa-music"></i> Music: Off 🔇
             </button>
-            <button id="themeToggleBtn" class="btn-3d btn-theme" onclick="toggleTheme()">
+            <button id="themeToggleBtn" onclick="toggleTheme()">
                 <i class="fa-solid fa-moon"></i> Dark Mode
             </button>
         </div>
     </nav>
 
+    <audio id="bgMusic" loop preload="auto">
+        <source src="bg-music.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+
     <header class="rgb-border">
         <h1>✨ අධ්‍යාපනික සම්පත් පියස ✨</h1>
         <p>Created with ❤️ by <strong>Eshan Kavishka</strong></p>
-        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, A/L Streams සහ Educational Tools එකම තැනකින්!</p>
-
-        <div class="user-level-container">
-            <span>🏆 Level: <strong id="userLevel">1</strong> (XP: <span id="userXP">0</span>/100)</span>
-            <div class="xp-bar-bg"><div id="xpBarFill" class="xp-bar-fill"></div></div>
-        </div>
-
-        <div class="quote-box" id="quoteBox">
-            <i class="fa-solid fa-quote-left"></i> <span id="quoteText">දිනපතා කුඩා ජයග්‍රහණයක් කරා පියනගන්න!</span> <i class="fa-solid fa-quote-right"></i>
-        </div>
+        <p class="sub-text">පෙළපොත්, Past Papers, Short Notes, YouTube සහ News එකම තැනකින්!</p>
         
-        <div class="countdowns-container">
-            <div class="countdown-card">
-                <span>🎓 5 ශිෂ්‍යත්වය: </span>
-                <strong id="grade5Countdown">ගණනය වේ...</strong>
-            </div>
-            <div class="countdown-card">
-                <span>📘 O/L විභාගය: </span>
-                <strong id="olCountdown">ගණනය වේ...</strong>
-            </div>
-            <div class="countdown-card">
-                <span>📕 A/L විභාගය: </span>
-                <strong id="alCountdown">ගණනය වේ...</strong>
-            </div>
-        </div>
-
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, A/L විෂය හෝ පුවත් සේවය සොයන්න...">
+            <input type="text" id="searchInput" onkeyup="searchBooks()" placeholder="අවශ්‍ය පොත, සටහන, වීඩියෝ හෝ පුවත් සේවය සොයන්න...">
         </div>
     </header>
 
-    <section class="quiz-section">
-        <div class="quiz-header">
-            <h3><i class="fa-solid fa-gamepad"></i> Mega Knowledge Arena (ප්‍රශ්න විචාරාත්මක අංගය)</h3>
-            <div class="quiz-stats">
-                <span class="stat-badge"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> Score: <strong id="scoreDisplay">0</strong></span>
-                <span class="stat-badge"><i class="fa-solid fa-fire" style="color: #ff4757;"></i> Streak: <strong id="streakDisplay">0</strong> 🔥</span>
-                <span class="stat-badge" id="badgeDisplay">🥉 Beginner</span>
+    <section class="motivation-banner">
+        <div class="banner-card">
+            <i class="fa-solid fa-brain banner-icon"></i>
+            <div>
+                <h3>අධ්‍යාපනයේ වැදගත්කම 🌟</h3>
+                <p>"අධ්‍යාපනය යනු ලෝකය වෙනස් කිරීමට ඔබට භාවිත කළ හැකි බලවත්ම ආයුධයයි." - නෙල්සන් මැන්ඩෙලා</p>
             </div>
         </div>
-
-        <div class="quiz-category-select">
-            <label for="quizCategory"><i class="fa-solid fa-filter"></i> විෂය තෝරන්න: </label>
-            <select id="quizCategory" onchange="changeQuizCategory(this.value)">
-                <option value="gk">🌐 සාමාන්‍ය දැනීම (General Knowledge)</option>
-                <option value="science">🔬 විද්‍යාව (Science)</option>
-                <option value="history">🏛️ ඉතිහාසය (History)</option>
-                <option value="grade5">🌟 ශිෂ්‍යත්වය (Grade 5)</option>
-            </select>
-        </div>
-
-        <div id="quizContainer" class="quiz-box">
-            <p id="quizQuestion" class="quiz-q-text">ප්‍රශ්නය ලබා ගනිමින් පවතී...</p>
-            <div id="quizOptions" class="quiz-options"></div>
-            
-            <div id="quizFeedback" class="quiz-feedback-card hidden">
-                <div id="feedbackIcon" class="feedback-icon"></div>
-                <h4 id="feedbackTitle"></h4>
-                <p id="feedbackMsg"></p>
-                <button onclick="nextQuestion()" class="btn-3d btn-theme" style="margin-top: 15px;">ඊළඟ ප්‍රශ්නය <i class="fa-solid fa-arrow-right"></i></button>
+        <div class="banner-card">
+            <i class="fa-solid fa-rocket banner-icon"></i>
+            <div>
+                <h3>දිනපතා උත්සාහ කරන්න! 🚀</h3>
+                <p>කුඩා පියවරක් වුවද සෑම දිනකම ඉදිරියට තබන්න. ඔබේ අනාගතය අද ඔබ කරන කැපවීම මත තීරණය වේ!</p>
             </div>
         </div>
     </section>
 
-    <section class="flashcard-section">
-        <h3><i class="fa-solid fa-clone"></i> Quick Study Flashcards (මතක තබා ගැනීමේ කාඩ්පත්)</h3>
-        <p>කාඩ්පත උඩ Click කර එහි පිළිතුර/තේරුම නරඹන්න!</p>
-        <div class="flashcard-grid">
-            <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">💡 Photosynthesis (ප්‍රභාසංශ්ලේෂණය)</div>
-                    <div class="flashcard-back">ශාක හිරු එළිය, ජලය සහ CO2 භාවිතයෙන් ආහාර නිපදවීමේ ක්‍රියාවලියයි.</div>
-                </div>
-            </div>
-            <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">📐 Pythagoras Theorem</div>
-                    <div class="flashcard-back">a² + b² = c² (ඍජුකෝණී ත්‍රිකෝණයක කර්ණයේ වර්ගය අනෙක් පාදවල වර්ගවල එකතුවට සමාන වේ).</div>
-                </div>
-            </div>
-            <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">🔤 English Word: "Perseverance"</div>
-                    <div class="flashcard-back">අධිෂ්ඨානය / නොපසුබට උත්සාහය (Keep trying despite difficulties).</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="kids-corner">
+        <div class="animal-tag">🐱 <span>ඉගෙනුම විනෝදයක් කරගනිමු!</span> 🦊</div>
+    </div>
 
     <div class="main-container">
         <aside class="sidebar">
             <h3><i class="fa-solid fa-list-check"></i> ප්‍රවර්ග (Categories)</h3>
             <ul>
                 <li onclick="filterCategory('all')"><i class="fa-solid fa-border-all"></i> 📚 සියල්ල (All)</li>
-                <li onclick="filterCategory('favorites')"><i class="fa-solid fa-star" style="color: #f1c40f;"></i> ⭐ මාගේ Favorites</li>
                 <li onclick="filterCategory('textbook')"><i class="fa-solid fa-book-open"></i> 📖 අච්චු පොත් & පාඩම්</li>
                 <li onclick="filterCategory('paper')"><i class="fa-solid fa-file-pen"></i> 📝 Past Papers & Notes</li>
                 <li onclick="filterCategory('youtube')"><i class="fa-brands fa-youtube"></i> 🎥 YouTube Lessons</li>
@@ -133,147 +74,33 @@
                 <li onclick="filterCategory('grade5')"><i class="fa-solid fa-award"></i> 🌟 ශිෂ්‍යත්වය (Grade 5)</li>
                 <li onclick="filterCategory('news')"><i class="fa-solid fa-newspaper"></i> 📰 අධ්‍යාපනික පුවත්</li>
             </ul>
-
-            <div class="grade-filter-container">
-                <h3><i class="fa-solid fa-layer-group"></i> A/L Streams & Grades</h3>
-                <select id="gradeSelect" onchange="filterGrade(this.value)">
-                    <option value="all">සියලුම ශ්‍රේණි (All Grades)</option>
-                    <option value="1-5">1 - 5 ශ්‍රේණි</option>
-                    <option value="6-9">6 - 9 ශ්‍රේණි</option>
-                    <option value="ol">10 - 11 ශ්‍රේණි (O/L)</option>
-                    <option value="al-maths">A/L Combined Maths</option>
-                    <option value="al-bio">A/L Biology</option>
-                    <option value="al-commerce">A/L Commerce</option>
-                    <option value="al-arts">A/L Arts</option>
-                    <option value="al-tech">A/L Technology</option>
-                </select>
-            </div>
         </aside>
 
         <main class="content">
-            <div id="bookGrid" class="grid"></div>
+            <div id="bookGrid" class="grid">
+                </div>
         </main>
     </div>
 
-    <section class="dictionary-section">
-        <h3><i class="fa-solid fa-spell-check"></i> Educational Dictionary (තාක්ෂණික ශබ්දකෝෂය)</h3>
-        <div class="dict-search">
-            <input type="text" id="dictInput" placeholder="English term එකක් Type කරන්න (e.g., Photosynthesis, Velocity)...">
-            <button class="btn-3d btn-theme" onclick="searchDictionary()"><i class="fa-solid fa-search"></i> සොයන්න</button>
-        </div>
-        <div id="dictResult" class="dict-result-box"></div>
-    </section>
-
-    <section class="timetable-section">
-        <h3><i class="fa-solid fa-calendar-days"></i> Study Timetable Planner (පාඩම් කාලසටහන)</h3>
-        <div class="timetable-form">
-            <input type="text" id="ttSubject" placeholder="විෂය (Subject)">
-            <input type="time" id="ttTime">
-            <button class="btn-3d btn-start" onclick="addTimetableItem()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
-        </div>
-        <ul id="timetableList" class="timetable-list"></ul>
-    </section>
-
-    <section class="calculator-section">
-        <h3><i class="fa-solid fa-calculator"></i> Exam Marks & Z-Score Calculator</h3>
-        <div class="calc-grid">
-            <div class="calc-card">
-                <h4>O/L සාමාර්ථ ගණකය</h4>
-                <input type="number" id="olMark" placeholder="ලකුණු ඇතුළත් කරන්න (0-100)" min="0" max="100">
-                <button class="btn-3d btn-theme" onclick="calculateOLGrade()">සාමාර්ථය බලන්න</button>
-                <div id="olResult" class="calc-result"></div>
-            </div>
-            <div class="calc-card">
-                <h4>A/L Z-Score Calculator</h4>
-                <input type="number" id="userMarks" placeholder="ඔබේ ලකුණු">
-                <input type="number" id="meanMarks" placeholder="මධ්‍යනය (Mean)">
-                <input type="number" id="sdMarks" placeholder="සම්මත අපගමනය (SD)">
-                <button class="btn-3d btn-theme" onclick="calculateZScore()">Z-Score බලන්න</button>
-                <div id="zResult" class="calc-result"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="notes-section">
-        <h3><i class="fa-solid fa-note-sticky"></i> මාගේ කෙටි සටහන් (Quick Study Notes)</h3>
-        <div class="note-input-group">
-            <input type="text" id="noteInput" placeholder="සටහන ඇතුළත් කරන්න...">
-            <button class="btn-3d btn-timer" onclick="addNote()"><i class="fa-solid fa-plus"></i> එකතු කරන්න</button>
-        </div>
-        <ul id="notesList" class="notes-list"></ul>
-    </section>
-
-    <div id="pdfModal" class="modal">
-        <div class="modal-content pdf-modal-content">
-            <span class="close-btn" onclick="closePdfModal()">&times;</span>
-            <h3 id="pdfTitle">📄 Document Preview</h3>
-            <iframe id="pdfFrame" src="" style="width: 100%; height: 420px; border: none; margin-top: 10px;"></iframe>
-        </div>
-    </div>
-
-    <div id="timerModal" class="modal">
-        <div class="modal-content timer-modal-content">
-            <span class="close-btn" onclick="toggleTimerModal()">&times;</span>
-            <h3>⏳ Custom Study Count Timer</h3>
-            <p class="timer-sub-text">ඔබට අවශ්‍ය කාලය (දවස්, පැය, විනාඩි, තත්පර) ලබා දී Start කරන්න.</p>
-            
-            <div class="timer-inputs">
-                <div class="input-box">
-                    <label>දවස්</label>
-                    <input type="number" id="timerDays" min="0" value="0">
-                </div>
-                <div class="input-box">
-                    <label>පැය</label>
-                    <input type="number" id="timerHours" min="0" value="0">
-                </div>
-                <div class="input-box">
-                    <label>විනාඩි</label>
-                    <input type="number" id="timerMinutes" min="0" value="25">
-                </div>
-                <div class="input-box">
-                    <label>තත්පර</label>
-                    <input type="number" id="timerSeconds" min="0" value="0">
-                </div>
-            </div>
-
-            <button class="btn-3d btn-set" onclick="setCustomTimer()">
-                <i class="fa-solid fa-check"></i> Time එක Set කරන්න
-            </button>
-
-            <div class="timer-display" id="timerDisplay">00d : 00h : 25m : 00s</div>
-
-            <div class="timer-controls">
-                <button class="btn-3d btn-start" onclick="startTimer()"><i class="fa-solid fa-play"></i> Start</button>
-                <button class="btn-3d btn-pause" onclick="pauseTimer()"><i class="fa-solid fa-pause"></i> Pause</button>
-                <button class="btn-3d btn-reset" onclick="resetTimer()"><i class="fa-solid fa-rotate-right"></i> Reset</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="breatheModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="toggleBreatheModal()">&times;</span>
-            <h3>🧘 Mind Relaxation Breathing</h3>
-            <p>තත්පර 4ක් හුස්ම ගන්න, තත්පර 4ක් තබා ගන්න, තත්පර 4ක් හෙමින් පිටකරන්න.</p>
-            <div class="breathe-circle" id="breatheCircle">
-                <span id="breatheText">Breathe In...</span>
-            </div>
-        </div>
-    </div>
-
     <section class="contact-section">
-        <h3><i class="fa-solid fa-paper-plane"></i> අදහස් යොමු කරන්න / ගැටළු යොමු කරන්න</h3>
-        <p>ඔබගේ ගැටළුව හෝ අදහස පහතින් ඇතුළත් කර WhatsApp හරහා සෘජුවම Eshan වෙත යොමු කරන්න.</p>
-        
-        <form id="feedbackForm" onsubmit="sendToWhatsApp(event)">
+        <h3><i class="fa-solid fa-paper-plane"></i> අදහස් යොමු කරන්න / අලුත් Links යෝජනා කරන්න</h3>
+        <p>ඔබට එකතු කිරීමට අවශ්‍ය අධ්‍යාපනික ලින්ක් එකක් තිබේ නම් හෝ වෙනත් අදහසක් ඇත්නම් අපට දන්වන්න.</p>
+        <form id="feedbackForm" onsubmit="handleFeedback(event)">
             <input type="text" id="contactName" placeholder="ඔබේ නම" required>
             <input type="email" id="contactEmail" placeholder="ඔබේ Email ලිපිනය (අවශ්‍ය නම් පමණි)">
-            <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ ගැටළුව මෙතැන Type කරන්න..." required></textarea>
-            
-            <button type="submit" class="btn-3d" style="background: #25D366; box-shadow: 0 5px 0 #1eb857;">
-                <i class="fa-brands fa-whatsapp"></i> WhatsApp හරහා යවන්න (Send via WhatsApp)
-            </button>
+            <textarea id="contactMessage" rows="3" placeholder="ඔබේ පණිවිඩය හෝ Link එක මෙතැන Type කරන්න..." required></textarea>
+            <button type="submit"><i class="fa-solid fa-paper-plane"></i> යවන්න (Send)</button>
         </form>
+    </section>
+
+    <section class="disclaimer-box">
+        <h3><i class="fa-solid fa-shield-halved"></i> ප්‍රකාශන හිමිකම් සහ වගකීම් නිමේෂය (Disclaimer)</h3>
+        <p>
+            මෙම වෙබ් අඩවියෙහි ඇතුළත් සියලුම පෙළපොත්, පසුගිය විභාග ප්‍රශ්න පත්‍ර, පුවත් සහ අධ්‍යාපනික සටහන්වල <strong>මූලික ප්‍රකාශන හිමිකම් (Copyrights)</strong> සහ අයිතිය ඒවා හිමි නිල ආයතන, දෙපාර්තමේන්තු සහ අදාළ වෙබ් අඩවි සතුවේ.
+        </p>
+        <p>
+            මෙම වෙබ් අඩවිය නිර්මාණය කර ඇත්තේ කිසිදු වාණිජමය හෝ අයහපත් අරමුණකින් තොරව, <strong>ශ්‍රී ලාංකේය සිසුන්ට සහ පරිශීලකයින්ට එම අධ්‍යාපනික සම්පත් එකම තැනකින් පහසුවෙන් සොයාගැනීමට (Easy Navigation)</strong> උපකාර කිරීමේ පරමාර්ථයෙන් පමණි. සියලුම Links මගින් පරිශීලකයා සෘජුවම අදාළ නිල වෙබ් අඩවි වෙත යොමු කරනු ලැබේ.
+        </p>
     </section>
 
     <button id="backToTopBtn" onclick="scrollToTop()">
